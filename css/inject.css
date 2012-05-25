@@ -2,8 +2,8 @@
     position: absolute;
     width: 32px;
     height: 32px;
-    top: 10px;
-    right: 10px;
+    top: 30px;
+    right: 30px;
     cursor: pointer;
     background: url(http://addmeto.cc/images/Black-cat.png) no-repeat;
 }
@@ -12,8 +12,8 @@
     position: absolute;
     width: 500px;
     height: 400px;
-    top: 10px;
-    right: 60px;
+    top: 30px;
+    right: 80px;
     font-family: Arial;
     background: white;
     box-shadow: 1px 3px 10px 0 rgba(0, 0, 0, 0.2);
