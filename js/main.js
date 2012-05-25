@@ -4,8 +4,8 @@ require.config({
     }
 });
 
-require(["jquery"], function($) {
+require(["jquery", 'modules/checkin'], function($, checkIn) {
     $(function() {
-        
+        var $commentsBtn = checkIn();
     });
 });
