@@ -53,7 +53,7 @@ def api_checkin(sitehash):
         else:
             checkin['checkins'] = int(checkin['checkins']) + 1
             mongo.db.kitty.update({'sitehash': sitehash}, checkin)
-        checkin['error'] = 0
+    checkin['error'] = 0
     checkin["comments_url"] = '/api/v1/comments/' + sitehash
     return jsonify(checkin, callback)
 
