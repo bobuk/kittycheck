@@ -79,5 +79,11 @@ def api_comments(sitehash):
     checkin['error'] = 0
     return jsonify(checkin, callback)
 
+@app.route('/iframe', methods = ['GET'])
+def get_iframe():
+    referer = request.environ.get('HTTP_REFERER', '')
+    rot = hashlib.md5(referer).hexdigest if referer else '0'
+    return open('views/index.html').read().replace('@site_uniq_id@', rot)
+
 if __name__ == "__main__":
     app.run()
