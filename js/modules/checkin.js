@@ -5,7 +5,7 @@ define(['jquery', 'modules/api', 'modules/tmpl'], function ($, api, tmpl) {
     // типо return $('.show-comments');
     return function () {
         api.checkIn(function(data) {
-        $('#kittycheck-container').append(tmpl('checkin-message-tmpl', data));
+        $('#kittycheck-container').append(tmpl('checkin_message_tmpl', data));
         $('#kittycheck-container').append('<div class="show-comments">Показать комментарии</div>');
 
         return $('.show-comments');
