@@ -1,4 +1,5 @@
 import sys;reload(sys); sys.setdefaultencoding('utf-8');
+import os
 sys.path.append('./libs/')
 import hashlib, simplejson, requests, random
 from datetime import datetime
@@ -84,6 +85,11 @@ def get_iframe():
     referer = request.environ.get('HTTP_REFERER', '')
     rot = hashlib.md5(referer).hexdigest if referer else '0'
     return open('views/index.html').read().replace('@@site_uniq_id@@', rot)
+
+@app.route('/deploy', methods=['GET', 'POST'])
+def deployment():
+    os.system('git pull')
+    return 'Done'
 
 if __name__ == "__main__":
     app.run()
