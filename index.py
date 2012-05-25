@@ -32,7 +32,7 @@ def api_checkin(sitehash):
         checkin = mongo.db.kitty.find_one({'sitehash': sitehash})
         if not checkin:
             checkin = {
-                'sitehash': sitehash, "checkins": 1, "comments": [],
+                'sitehash': sitehash, "checkins": 1, "comments_url": '/api/v1/comments/' + sitehash,
             }
             mongo.db.kitty.insert(checkin)
         else:
