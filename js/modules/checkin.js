@@ -4,8 +4,10 @@ define(['jquery', 'modules/api'], function ($, api) {
     // возвращает элемент на который кликать для отображения каментов
     // типо return $('.show-comments');
     return function () {
-        api.checkIn(function(){
-            $('#kittycheck-container .checkin-count').text(data.checkins);
-        });
+        api.checkIn(function(data) {
+        $('#kittycheck-container .checkin-count').text(data.checkins);
+
+        return $('.show-comments');
+      });
     };
 });
