@@ -22,7 +22,7 @@ jQuery.noConflict();
         
         $cat.checkin($wrp, function () {
             $wrp.show();
-            $iframe.attr('src', 'index.html'); // @todo: заменить на абсолютный путь
+            $iframe.attr('src', 'http://ec2-79-125-81-156.eu-west-1.compute.amazonaws.com:5000/iframe');
         });
         
         $close.click(function(){
