@@ -1,4 +1,11 @@
 <!DOCTYPE html>
 <meta charset="utf-8" />
-<script>window.site_uniq_id = '73caa1ce7b3233d717abe148def9681f';</script>
+<script>window.site_uniq_id = '@@site_uniq_id@@';</script>
 <script data-main="js/main" src="js/libs/require.js"></script>
+<script type="text/html" id="checkin-message-tmpl">
+  <div class="checkin-message">
+    Ура! Ты зачекинился тут <span class="checkin-count"><%= checkins %></span>-м!
+  </div>
+</script>
+<title>Iframe</title>
+<div id="kittycheck-container"></div>
