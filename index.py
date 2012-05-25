@@ -91,5 +91,9 @@ def deployment():
     os.system('git pull')
     return 'Done'
 
+@app.route('/<path:fullpath>')
+def static_redirect(fullpath):
+    return redirect('/static/' + fullpath)
+
 if __name__ == "__main__":
     app.run()
