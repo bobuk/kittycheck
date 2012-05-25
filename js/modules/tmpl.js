@@ -1,4 +1,6 @@
 define(function () {
+    var cache = {};
+
     return function tmpl(str, data){
     // Figure out if we're getting a template, or if we need to
     // load the template - and be sure to cache the result.
