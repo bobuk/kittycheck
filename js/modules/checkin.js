@@ -4,6 +4,8 @@ define(['jquery'], function () {
     // возвращает элемент на который кликать для отображения каментов
     // типо return $('.show-comments');
     return function () {
-        
+      $.post("/api/checkin/"+window.site_uniq_id, function(data) {
+        $('#kittycheck-container .checkin-count').text(data.checkins);
+      });
     };
 });

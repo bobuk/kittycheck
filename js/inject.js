@@ -1,15 +1,33 @@
-(function() {
-    var bindReady = function (callback){
-        // @todo: replace with cross-browser function
-        document.addEventListener("DOMContentLoaded", callback);
-    }
-    
-    var init = function () {
-        var element = document.createElement('div');
-        element.innerHTML = '<img style="cursor: pointer; position: absolute; top: 10px; right: 10px;"'
-        +' src="/img/cat.png" alt="kittycheck" width="32" height="32" />';
-        document.getElementsByTagName('body')[0].appendChild(element);
-    };
-
-    bindReady(init);
-}());
+jQuery.noConflict();
+(function($){
+    $(function(){
+        var $wrp = $('<div>').addClass('kittycheck-wrp');
+        var $close = $('<a>')
+            .attr('href', 'javascript:void(0)')
+            .attr('title', 'Закрыть')
+            .addClass('kittycheck-close')
+            .text('×');
+        var $title = $('<div>')
+            .addClass('kittycheck-title')
+            .html('Kittycheck');
+        var $iframe = $('<iframe>')
+            .attr('src', 'index.html') // @todo: заменить на абсолютный путь
+            .addClass('kittycheck-iframe');
+        var $cat = $('<div>')
+            .addClass('kittycheck-cat');
+            
+        $('body').append($cat).append($wrp);
+        $wrp.append($title).append($iframe);
+        $title.append($close);
+        
+        $cat.click(function(){
+            $wrp.show();
+            return false; 
+        });
+        
+        $close.click(function(){
+            $wrp.hide();
+            return false;
+        });
+    });
+}(jQuery));
