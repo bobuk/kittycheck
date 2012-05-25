@@ -4,7 +4,7 @@ sys.path.append('./libs/')
 import hashlib, simplejson, requests, random
 from datetime import datetime
 import pymongo
-from flask import Flask, render_template, request, Response, redirect, abort, session
+from flask import Flask, render_template, request, Response, redirect, abort, session, send_from_directory
 from flask.ext.pymongo import PyMongo
 import config
 
@@ -91,9 +91,10 @@ def deployment():
     os.system('git pull')
     return 'Done'
 
+
 @app.route('/<path:fullpath>')
-def static_redirect(fullpath):
-    return redirect('/static/' + fullpath)
+def static_router(fullpath):
+    return send_from_directory('.', fullpath)
 
 if __name__ == "__main__":
     app.run()
