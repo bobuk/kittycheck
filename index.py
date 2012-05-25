@@ -12,7 +12,8 @@ app.secret_key = config.SECRET
 mongo = PyMongo(app)
 
 def jsonify(hash, callback = None):
-    del hash['_id']
+    if hash.has_key('_id'):
+        del hash['_id']
     res = simplejson.dumps(hash, ensure_ascii=False)
     if callback:
         res = callback + '(' + res + ');'
