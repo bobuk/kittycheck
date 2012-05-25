@@ -22,8 +22,17 @@ def jsonify(hash, callback = None):
             mimetype='text/javascript'
     )
 
+def check_hash_validity(hash):
+    try:
+        int(hash, 16)
+        return True
+    except:
+        return False
+
 @app.route('/api/v1/checkin/<sitehash>/', methods = ['POST', 'GET'])
 def api_checkin(sitehash):
+    if not check_hash_validity(sitehash):
+        return abort(403)
     callback = request.args.get('cb', None)
     if request.method == 'GET':
         checkin = mongo.db.kitty.find_one({'sitehash': sitehash})
