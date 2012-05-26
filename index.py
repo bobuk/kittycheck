@@ -78,7 +78,7 @@ def login():
 @app.route('/oauth-authorized')
 @twitter.authorized_handler
 def oauth_authorized(resp):
-    next_url = url_for('window_close') # request.args.get('next')
+    next_url = request.args.get('next') or url_for('window_close')
     if resp is None:
         return redirect(next_url)
 
