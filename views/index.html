@@ -8,16 +8,21 @@
 <div id="kittycheck-container"></div>
 
 <script type="text/html" id="checkin_message_tmpl">
-    <div class="checkin-message">
-        Ура! Ты зачекинился тут <span class="checkin-count"><%= checkins %></span>-м!
-    </div>
-    <div class="auth-message">
-      <button class="btn btn-primary sign-in">Авторизироваться через <b>twitter</b></button>
-      <small>Авторизируйтесь чтобы писать комментарии</small>
+    <div class="checkin-page">
+        <div class="checkin-message">
+            Ура! Ты зачекинился тут <span class="checkin-count"><%= checkins %></span>-м!
+        </div>
+        <div class="auth-message">
+          <button class="btn btn-primary sign-in">Авторизироваться через <b>twitter</b></button>
+          <small>Авторизируйтесь чтобы писать комментарии</small>
+        </div>
     </div>
 </script>
 
 <script type="text/html" id="comments_page_tmpl">
+    <div class="checkin-message-c">
+        Ура! Ты зачекинился тут <span class="checkin-count"></span>-м!
+    </div>
     <form action="" id="send-comment">
         <div class="form">
             <textarea placeholder="Напишите сюда хороший комментарий"></textarea>

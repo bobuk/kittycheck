@@ -49,7 +49,10 @@ define(function() {
                 url: apiUrl + 'identity/',
                 type: 'get',
                 dataType: 'json',
-                success: callback
+                success: callback,
+                error: function(){
+                    callback({authenticated: false});
+                }
             });
         }
     };
