@@ -8,6 +8,7 @@ import pymongo
 from flask import Flask, render_template, request, Response, redirect, abort, session, send_from_directory
 from flask.ext.pymongo import PyMongo
 import config
+import bleach
 
 app = Flask("index")
 app.config.from_object(config)
@@ -76,6 +77,13 @@ def api_comments(sitehash):
         text = request.form.get('text', '')
         if not text or len(text) == 0:
             return jsonify({'error':"Empty text", "checkins": 0, "comments": []})
+        text = bleach.linkify(
+            bleach.clean(
+                text,
+                tags = ['i','b','strong','h3']
+            ),
+            nofollow = True
+        )
         if not checkin:
             checkin = get_default_checkin(sitehash)
             mongo.db.kitty.insert(checkin)
