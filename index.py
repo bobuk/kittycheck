@@ -3,6 +3,7 @@ import os
 sys.path.append('./libs/')
 import hashlib, simplejson, requests, random
 from datetime import datetime
+import time
 import pymongo
 from flask import Flask, render_template, request, Response, redirect, abort, session, send_from_directory
 from flask.ext.pymongo import PyMongo
@@ -78,10 +79,10 @@ def api_comments(sitehash):
         if not checkin:
             checkin = get_default_checkin(sitehash)
             mongo.db.kitty.insert(checkin)
-        checkin['comments'].append({
+        checkin['comments'].insert(0, {
             "text": text,
             "author": {"login": "nobody", "name": "Nonamed"},
-            "datetime": str(datetime.now())
+            "datetime": str(time.mktime(datetime.now().timetuple()))
         })
         mongo.db.kitty.update({'sitehash': sitehash}, checkin)
     checkin['error'] = 0
