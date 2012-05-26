@@ -74,7 +74,7 @@ def login():
     if g.user:
         return redirect(url_for("window_close"))
     return twitter.authorize(callback=url_for('oauth_authorized',
-        next=request.args.get('next') or request.referrer or None))
+        next=request.args.get('next')))
 
 @app.route('/logout')
 def logout():
