@@ -78,7 +78,8 @@ def login():
 
 @app.route('/logout')
 def logout():
-    del session['user_id']
+    if 'user_id' in session:
+        del session['user_id']
     return redirect(url_for("window_close"))
 
 @app.route('/oauth-authorized')
@@ -148,6 +149,8 @@ def api_comments(sitehash):
         if not checkin or not checkin.has_key('comments') or len(checkin['comments']) == 0:
             return jsonify({'error':"No comments yet", "checkins": checkins, "comments": []})
     elif request.method == 'POST':
+        if not g.user:
+            return abort(401)
         text = request.form.get('text', '')
         if not text or len(text) == 0:
             return jsonify({'error':"Empty text", "checkins": 0, "comments": []})
@@ -163,7 +166,7 @@ def api_comments(sitehash):
             mongo.db.kitty.insert(checkin)
         checkin['comments'].insert(0, {
             "text": text,
-            "author": {"login": "nobody", "name": "Nonamed"},
+            "author": {"login": g.user['name'], "name": g.user['name']},
             "datetime": str(time.mktime(datetime.now().timetuple()))
         })
         mongo.db.kitty.update({'sitehash': sitehash}, checkin)
