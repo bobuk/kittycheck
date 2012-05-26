@@ -1,4 +1,8 @@
-define(['modules/api', 'modules/tmpl'], function (api, tmpl) {
+define([
+    'modules/api', 
+    'modules/tmpl', 
+    'modules/prettyDate'
+], function (api, tmpl, prettyDate) {
     // рендерит комментарии
     return function () {
         $('#kittycheck-container').html(tmpl('comments_page_tmpl'));
@@ -13,6 +17,7 @@ define(['modules/api', 'modules/tmpl'], function (api, tmpl) {
             if (comments && comments.length) {
                 var html = [];
                 $.each(comments, function(i, item){
+                    item.datetime = prettyDate(new Date(item.datetime));
                     html.push(tmpl('comment_tmpl', item));
                 });
                 $noComments.hide();

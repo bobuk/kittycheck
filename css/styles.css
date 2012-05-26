@@ -349,10 +349,63 @@ body {
     margin: 0 0 5px 10px;
     display: none;
 }
-#messages-container {
-    
+
+.comment .avatar {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.comment {
+    position: relative;
+    min-height: 50px;
+    box-sizing: border-box;
+    padding: 9px 12px 9px 70px;
+}
+.comment .header .time {
+    float: right;
+    font-size: 12px;
+    color: #999;
+    margin-right: 5px;
+    margin-top: 5px;
 }
 
+.comment .fullname {
+    font-weight: bold;
+    color: #333;
+    display: inline-block;
+    margin-right: 7px;
+}
+.comment .username {
+    font-size: 12px;
+    color: #999;
+}
+.comment .username s {
+    color: #CCC;
+    font-size: 12px;
+    text-decoration: none;
+}
+.comment .username b {
+    font-weight: normal;
+}
+.comment a.account {
+    text-decoration: none;
+}
+.comment a.account:hover .fullname {
+    color: #0084B4;
+    text-decoration: underline;
+}
+.comment .avatar {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 48px;
+    height: 48px;
+}
+.comment .text {
+    margin: 5px 22px 5px 0;
+    color: #333;
+    font-size: 14px;
+}
 
 @media only screen and (min-width: 35em) {
   

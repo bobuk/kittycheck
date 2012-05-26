@@ -35,6 +35,17 @@
 
 <script type="text/html" id="comment_tmpl">
     <div class="comment">
-        <%= text %>
+        <div class="header">
+            <a href="https://twitter.com/<%= author.login %>" target="_blank" class="account">
+                <img src="https://api.twitter.com/1/users/profile_image?screen_name=<%= author.login %>&size=normal" 
+                     alt="<%= author.login %>" class="avatar" />
+                <strong class="fullname"><%= author.name %></strong>
+                <span class="username">
+                    <s>@</s><b><%= author.login %></b>
+                </span>
+            </a>
+            <small class="time"><%= datetime %></small>
+        </div>
+        <p class="text"><%=text%></p>
     </div>
 </script>
