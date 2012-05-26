@@ -77,7 +77,11 @@ def api_comments(sitehash):
         if not checkin:
             checkin = get_default_checkin(sitehash)
             mongo.db.kitty.insert(checkin)
-        checkin['comments'].append({"text": text, "author": 'nobody', "datetime": str(datetime.now())})
+        checkin['comments'].append({
+            "text": text,
+            "author": {"login": "nobody", "name": "Nonamed"},
+            "datetime": str(datetime.now())
+        })
         mongo.db.kitty.update({'sitehash': sitehash}, checkin)
     checkin['error'] = 0
     return jsonify(checkin, callback)
