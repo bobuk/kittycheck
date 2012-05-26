@@ -1,4 +1,4 @@
-define(['jquery'], function($) {
+define(function() {
     
     /**
      * потом здесь будет относительный путь

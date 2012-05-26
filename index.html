@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <meta charset="utf-8" />
-<script>window.site_uniq_id = '72f06eedb2fd5971d8fa9df1918793fe';</script>
+<script>window.site_uniq_id = 'b026324c6904b2a9cb4b88d6d61c81d1';</script>
 <script data-main="js/main" src="js/libs/require.js"></script>
-<script type="text/html" id="checkin_message_tmpl">
-  <div class="checkin-message">
-    Ура! Ты зачекинился тут <span class="checkin-count"><%= checkins %></span>-м!
-  </div>
-</script>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
 <title>Iframe</title>
+
 <div id="kittycheck-container"></div>
+
+<script type="text/html" id="checkin_message_tmpl">
+    <div class="checkin-message">
+        Ура! Ты зачекинился тут <span class="checkin-count"><%= checkins %></span>-м!
+        <br /><br />
+        <button class="btn btn-primary show-comments">Показать комментарии</button>
+    </div>
+</script>
+

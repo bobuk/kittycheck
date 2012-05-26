@@ -2,10 +2,16 @@
 <meta charset="utf-8" />
 <script>window.site_uniq_id = '@@site_uniq_id@@';</script>
 <script data-main="js/main" src="js/libs/require.js"></script>
-<script type="text/html" id="checkin_message_tmpl">
-  <div class="checkin-message">
-    Ура! Ты зачекинился тут <span class="checkin-count"><%= checkins %></span>-м!
-  </div>
-</script>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
 <title>Iframe</title>
+
 <div id="kittycheck-container"></div>
+
+<script type="text/html" id="checkin_message_tmpl">
+    <div class="checkin-message">
+        Ура! Ты зачекинился тут <span class="checkin-count"><%= checkins %></span>-м!
+        <br /><br />
+        <button class="btn btn-primary show-comments">Показать комментарии</button>
+    </div>
+</script>
+
