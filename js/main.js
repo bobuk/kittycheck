@@ -7,14 +7,18 @@ require.config({
 require([
     'jquery', 
     'modules/checkin', 
-    'modules/showComments',
+    'modules/showComments', 
     'modules/twitterAuth'
 ], function($, checkIn, showComments, twitterAuth) {
     $(function() {
-        checkIn(function(data){
-            $('.sign-in').click(function(){
-                twitterAuth.signIn();
-                return false;
+        twitterAuth.checkIdentity(function(){
+            showComments();
+        }, function(){
+            checkIn(function(data){
+                $('.sign-in').click(function(){
+                    twitterAuth.signIn();
+                    return false;
+                });
             });
         });
     });

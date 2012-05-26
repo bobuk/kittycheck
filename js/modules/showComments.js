@@ -13,7 +13,8 @@ define([
             $sendLoader = $('.form .send-loader'),
             $noComments = $('.no-comments');
         
-        var renderComments = function (comments) {
+        var renderComments = function (data) {
+            var comments = data.comments;
             if (comments && comments.length) {
                 var html = [];
                 $.each(comments, function(i, item){
@@ -25,6 +26,8 @@ define([
             } else {
                 $noComments.show();
             }
+            $('.checkin-count').text(data.checkins);
+            $('.checkin-message-c').show();
         };
         
         var showNotification = function (msg, isError) {
@@ -55,7 +58,7 @@ define([
         var sendComment = function (text) {
             api.sendComment(text, function(resp){
                 showNotification('Сообщение отправлено');
-                renderComments(resp.comments);
+                renderComments(resp);
                 $text.val('');
                 toggleSendBtn(true);
             }, function(resp){
@@ -67,7 +70,7 @@ define([
         $loader.show();
         api.getComments(function(data){
             $loader.hide();
-            renderComments(data.comments);
+            renderComments(data);
         });
         
         $form.submit(function(){
