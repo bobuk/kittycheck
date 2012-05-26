@@ -119,7 +119,7 @@ def api_authinfo():
 
 @app.route('/api/v1/checkin/<sitehash>/', methods = ['POST', 'GET'])
 def api_checkin(sitehash):
-    sitehash = hash_validity(sitehash):
+    sitehash = hash_validity(sitehash)
     callback = request.args.get('cb', None)
     checkin = get_checkin_by_hash(sitehash)
     if request.method == 'GET':
@@ -140,7 +140,7 @@ def api_checkin(sitehash):
 
 @app.route('/api/v1/comments/<sitehash>/', methods = ['POST', 'GET'])
 def api_comments(sitehash):
-    sitehash = hash_validity(sitehash):
+    sitehash = hash_validity(sitehash)
     callback = request.args.get('cb', None)
     checkin = get_checkin_by_hash(sitehash)
     if request.method == 'GET':
