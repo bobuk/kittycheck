@@ -19,7 +19,7 @@ oauth = OAuth()
 
 twitter = oauth.remote_app('KittyCheck',
     consumer_key=config.TWITTER["consumer_key"],
-    consumer_secret=config.TWITTER["consumer_secret"]
+    consumer_secret=config.TWITTER["consumer_secret"],
 
     base_url='http://api.twitter.com/1/',
     request_token_url='http://api.twitter.com/oauth/request_token',
