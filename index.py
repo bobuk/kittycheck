@@ -72,6 +72,8 @@ def api_comments(sitehash):
             return jsonify({'error':"No comments yet", "checkins": 0, "comments": []})
     elif request.method == 'POST':
         text = request.form.get('text', '')
+        if not text or len(text) == 0:
+            return jsonify({'error':"Empty text", "checkins": 0, "comments": []})
         if not checkin:
             checkin = get_default_checkin(sitehash)
             mongo.db.kitty.insert(checkin)
