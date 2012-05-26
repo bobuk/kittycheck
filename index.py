@@ -96,7 +96,7 @@ def oauth_authorized(resp):
     session['user_id'] = user["user_id"]
     return redirect(next_url)
 
-@app.route('/api/v1/identity', methods = ['GET'])
+@app.route('/api/v1/identity/', methods = ['GET'])
 def api_authinfo():
     if not g.user:
         return abort(401)
