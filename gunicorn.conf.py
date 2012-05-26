@@ -5,7 +5,7 @@ def numCPUs():
         raise RuntimeError("No sysconf detected.")
     return os.sysconf("SC_NPROCESSORS_ONLN")
 
-bind = "0.0.0.0:5001"
+bind = "0.0.0.0:80"
 workers = numCPUs() * 2 + 1
 pidfile = '/tmp/kittycheck.pid'
 proc_name = 'gunicorn/kittycheck'
