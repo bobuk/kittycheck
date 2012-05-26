@@ -78,5 +78,17 @@ define([
             }
             return false;
         });
+        
+        $text.focus(function(){
+            $form.addClass('focused');
+        }).blur(function(){
+            if (!$text.val()) {
+                $form.removeClass('focused');
+            }
+        }) .keydown(function(e){
+            if((e.ctrlKey || e.metaKey) && e.keyCode==13) {
+                $form.submit();
+            }
+        });
     };
 });
