@@ -316,13 +316,8 @@ textarea:focus {
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
-.checkin-message {
-    padding: 10px;
-}
-.checkin-message small {
-    color: #999;
-    font-size: 80%;
+#kittycheck-container {
+  padding: 10px;
 }
 .loader {
     width: 100%;
@@ -418,6 +413,23 @@ body {
     font-size: 14px;
     padding: 12px;
     padding-bottom: 0;
+}
+
+
+.checkin-message {
+  font-size: 120%;
+}
+.checkin-message .checkin-count {
+  font-weight: bold;
+}
+.auth-message {
+  margin-top: 1em;
+}
+.auth-message small {
+  display: block;
+  margin-top: 1em;
+  color: #999;
+  font-size: 80%;
 }
 
 

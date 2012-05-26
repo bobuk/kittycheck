@@ -18,15 +18,14 @@ mongo = PyMongo(app)
 oauth = OAuth()
 
 twitter = oauth.remote_app('KittyCheck',
+    consumer_key=config.TWITTER["consumer_key"],
+    consumer_secret=config.TWITTER["consumer_secret"],
+
     base_url='http://api.twitter.com/1/',
     request_token_url='http://api.twitter.com/oauth/request_token',
     access_token_url='http://api.twitter.com/oauth/access_token',
     authorize_url='http://api.twitter.com/oauth/authenticate',
-    consumer_key=config.TWITTER["consumer_key"],
-    consumer_secret=config.TWITTER["consumer_secret"]
 )
-
-
 
 def jsonify(hash, callback = None):
     if hash.has_key('_id'):
@@ -73,12 +72,12 @@ def get_twitter_token():
 @app.route('/login')
 def login():
     return twitter.authorize(callback=url_for('oauth_authorized',
-        next=request.args.get('next')))
+        next=request.args.get('next') or request.referrer or None))
 
 @app.route('/oauth-authorized')
 @twitter.authorized_handler
 def oauth_authorized(resp):
-    next_url = url_for('window_close') # request.args.get('next')
+    next_url = request.args.get('next') or url_for('window_close')
     if resp is None:
         return redirect(next_url)
 
