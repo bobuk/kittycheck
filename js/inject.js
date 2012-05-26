@@ -1,8 +1,12 @@
 jQuery.noConflict();
 (function($){
     
+    var IFRAME_URL = 'http://ec2-79-125-81-156.eu-west-1.compute.amazonaws.com:5000/iframe';
+    
     $(function(){
-        var $wrp = $('<div>').addClass('kittycheck-wrp');
+        var $wrp = $('<div>')
+            .css({left: $(document).width() - 600})
+            .addClass('kittycheck-wrp');
         var $close = $('<a>')
             .attr('href', 'javascript:void(0)')
             .attr('title', 'Закрыть')
@@ -11,23 +15,38 @@ jQuery.noConflict();
         var $title = $('<div>')
             .addClass('kittycheck-title')
             .html('Kittycheck');
+        var $iframeWrp = $('<div>')
+            .addClass('kittycheck-iframe-wrp');
         var $iframe = $('<iframe>')
             .addClass('kittycheck-iframe');
+        var $iframeFix = $('<div>')
+            .addClass('kittycheck-iframefix');
         var $cat = $('<div>')
             .addClass('kittycheck-cat');
             
-        $('body').append($cat).append($wrp);
-        $wrp.append($title).append($iframe);
+        $('body').append($cat, $wrp);
+        $wrp.append($title, $iframeWrp);
+        $iframeWrp.append($iframe, $iframeFix);
         $title.append($close);
         
         $cat.checkin($wrp, function () {
             $wrp.show();
-            $iframe.attr('src', 'http://ec2-79-125-81-156.eu-west-1.compute.amazonaws.com:5000/iframe');
+            $iframe.attr('src', IFRAME_URL);
         });
         
         $close.click(function(){
             $wrp.hide();
             return false;
+        });
+        
+        $wrp.draggable({
+            handle: $title,
+            start: function () {
+                $iframeFix.show();
+            },
+            stop: function () {
+                $iframeFix.hide();
+            }
         });
     });
     
@@ -38,8 +57,8 @@ jQuery.noConflict();
             
         $(this).mousedown(function(e){
             if (!$wrp.is(':visible')) {
-                addracker('#kitty', e);
-                pressTimer = window.setTimeout(function() {
+                addracker(e);
+                pressTimer = setTimeout(function() {
                     callback();
                 }, timeout);
             }
@@ -78,13 +97,13 @@ jQuery.noConflict();
             $('#kittychek-milk').value();
         }
         
-        function addracker(sel, ev) {
+        function addracker(e) {
             $('body').append(
                 "<canvas id='kittychek-milk' "+
                 " width=75 height=75 " +
                 "style='position: absolute; " +
-                "left: " + (ev.clientX-35) + "px; " +
-                "top: "  + (ev.clientY-35) +  "px;' value='0'/>");
+                "left: " + (e.clientX-35) + "px; " +
+                "top: "  + (e.clientY-35) +  "px;' value='0'/>");
             timer();
         }
         
@@ -110,5 +129,47 @@ jQuery.noConflict();
             };
         }
     };
+    
+    $.fn.draggable = function(options) {
+        var defaults = {
+                handle: false,
+                start: function(){},
+                stop: function(){}
+            },
+            options = $.extend({}, defaults, options),
+            $document = $(document), 
+            mouse = {
+                update: function(e) {
+                    this.x = e.pageX;
+                    this.y = e.pageY;
+            }
+        };
+    
+        return this.each(function(){
+            var $elem = $(this),
+                $handle = options.handle || $elem;
+            $handle.bind('mousedown.drag', function(e) {
+                mouse.update(e);
+                if (typeof options.start == 'function') {
+                    options.start(e);
+                }
+                $document.bind('mousemove.drag', function(e) {
+                    $elem.css({
+                        left: (parseInt($elem.css('left'))||0) + (e.pageX - mouse.x) + 'px',
+                        top: (parseInt($elem.css('top'))||0) +  (e.pageY - mouse.y) + 'px'
+                    });
+                    mouse.update(e);
+                    e.preventDefault();
+                });
+                $document.one('mouseup.drag', function(e) {
+                    if (typeof options.stop == 'function') {
+                        options.stop(e);
+                    }
+                    $document.unbind('mousemove.drag');
+                });
+                e.preventDefault();
+            });  
+        });
+    }
     
 }(jQuery));

@@ -1,5 +1,6 @@
 .kittycheck-cat {
     position: absolute;
+    z-index: 4000;
     width: 32px;
     height: 32px;
     top: 30px;
@@ -13,7 +14,7 @@
     width: 500px;
     height: 400px;
     top: 30px;
-    right: 80px;
+    left: 30px;
     font-family: Arial;
     background: white;
     box-shadow: 1px 3px 10px 0 rgba(0, 0, 0, 0.2);
@@ -23,7 +24,7 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    z-index: 4000;
+    z-index: 4001;
 }
 .kittycheck-title {
     font-size: 14px;
@@ -32,6 +33,20 @@
     border-bottom: 1px solid #BEBEBE;
     padding: 10px 5px;
     position: relative;
+    cursor: move;
+}
+.kittycheck-iframe-wrp {
+    position: relative;
+}
+.kittycheck-iframefix {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 4002;
+    opacity: 0.1;
 }
 .kittycheck-close {
     display: block;
