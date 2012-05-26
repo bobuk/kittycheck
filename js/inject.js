@@ -1,9 +1,8 @@
 jQuery.noConflict();
 (function($){
-    
-//    var IFRAME_URL = 'http://ec2-79-125-81-156.eu-west-1.compute.amazonaws.com:5000/iframe';
+
     var IFRAME_URL = 'index.html';
-    
+
     $(function(){
         var $wrp = $('<div>')
             .css({left: $(document).width() - 600})
@@ -24,22 +23,22 @@ jQuery.noConflict();
             .addClass('kittycheck-iframefix');
         var $cat = $('<div>')
             .addClass('kittycheck-cat');
-            
+
         $('body').append($cat, $wrp);
         $wrp.append($title, $iframeWrp);
         $iframeWrp.append($iframe, $iframeFix);
         $title.append($close);
-        
+
         $cat.checkin($wrp, function () {
             $wrp.show();
             $iframe.attr('src', IFRAME_URL);
         });
-        
+
         $close.click(function(){
             $wrp.hide();
             return false;
         });
-        
+
         $wrp.draggable({
             handle: $title,
             start: function () {
@@ -50,12 +49,12 @@ jQuery.noConflict();
             }
         });
     });
-    
+
     $.fn.checkin = function($wrp, callback){
         var pressTimer,
             milkTimer,
             timeout = 1400;
-            
+
         $(this).mousedown(function(e){
             if (!$wrp.is(':visible')) {
                 addracker(e);
@@ -63,14 +62,14 @@ jQuery.noConflict();
                     callback();
                 }, timeout);
             }
-            return false; 
+            return false;
         });
-        
+
         $('body').mouseup(function() {
             clearTimeout(pressTimer)
             delracker();
         });
-        
+
         function draw( color, size ) {
             var milk = $('#kittychek-milk');
             var a = 1.0 * milk.attr('value')
@@ -97,7 +96,7 @@ jQuery.noConflict();
         function raker() {
             $('#kittychek-milk').value();
         }
-        
+
         function addracker(e) {
             $('body').append(
                 "<canvas id='kittychek-milk' "+
@@ -107,16 +106,16 @@ jQuery.noConflict();
                 "top: "  + (e.clientY-35) +  "px;' value='0'/>");
             timer();
         }
-        
+
         function delracker() {
             $('#kittychek-milk').remove();
             clearTimeout(milkTimer);
         }
-        
+
         function YouHooo() {
             delracker();
         }
-        
+
         var timer = function () {
             var milk = $('#kittychek-milk');
             var a = 1.0 * milk.attr('value');
@@ -130,7 +129,7 @@ jQuery.noConflict();
             };
         }
     };
-    
+
     $.fn.draggable = function(options) {
         var defaults = {
                 handle: false,
@@ -138,14 +137,14 @@ jQuery.noConflict();
                 stop: function(){}
             },
             options = $.extend({}, defaults, options),
-            $document = $(document), 
+            $document = $(document),
             mouse = {
                 update: function(e) {
                     this.x = e.pageX;
                     this.y = e.pageY;
             }
         };
-    
+
         return this.each(function(){
             var $elem = $(this),
                 $handle = options.handle || $elem;
@@ -169,8 +168,8 @@ jQuery.noConflict();
                     $document.unbind('mousemove.drag');
                 });
                 e.preventDefault();
-            });  
+            });
         });
     }
-    
+
 }(jQuery));
