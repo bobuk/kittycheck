@@ -99,7 +99,7 @@ def oauth_authorized(resp):
 @app.route('/api/v1/identity', methods = ['GET'])
 def api_authinfo():
     if not g.user:
-        return session['user_id'] # abort(401)
+        return abort(401)
     res  = dict(
         authenticated = True,
         author = dict(
