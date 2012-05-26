@@ -38,12 +38,13 @@ def jsonify(hash, callback = None):
             mimetype='text/javascript'
     )
 
-def check_hash_validity(hash):
-    try:
-        int(hash, 16)
-        return True
-    except:
-        return False
+def hash_validity(hash):
+    return ''.join(
+        filter(
+            lambda x: x.isalpha() or x.isdigit() or x in ['-'],
+            hash
+        )
+    )
 
 def get_checkin_by_hash(hash):
     return mongo.db.kitty.find_one({'sitehash': hash})
@@ -118,8 +119,7 @@ def api_authinfo():
 
 @app.route('/api/v1/checkin/<sitehash>/', methods = ['POST', 'GET'])
 def api_checkin(sitehash):
-    if not check_hash_validity(sitehash):
-        return abort(403)
+    sitehash = hash_validity(sitehash):
     callback = request.args.get('cb', None)
     checkin = get_checkin_by_hash(sitehash)
     if request.method == 'GET':
@@ -140,8 +140,7 @@ def api_checkin(sitehash):
 
 @app.route('/api/v1/comments/<sitehash>/', methods = ['POST', 'GET'])
 def api_comments(sitehash):
-    if not check_hash_validity(sitehash):
-        return abort(403)
+    sitehash = hash_validity(sitehash):
     callback = request.args.get('cb', None)
     checkin = get_checkin_by_hash(sitehash)
     if request.method == 'GET':
