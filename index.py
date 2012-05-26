@@ -78,7 +78,7 @@ def login():
 @app.route('/oauth-authorized')
 @twitter.authorized_handler
 def oauth_authorized(resp):
-    next_url = request.args.get('next') or url_for('get_iframe')
+    next_url = request.args.get('next') or url_for('window_close')
     if resp is None:
         return redirect(next_url)
 
@@ -163,6 +163,10 @@ def api_comments(sitehash):
         mongo.db.kitty.update({'sitehash': sitehash}, checkin)
     checkin['error'] = 0
     return jsonify(checkin, callback)
+
+@app.route('/window/close')
+def window_close():
+    return "<!DOCTYPE html><meta charset=utf-8 /><title>close</title><script>window.close()</script>"
 
 @app.route('/iframe', methods = ['GET'])
 def get_iframe():
