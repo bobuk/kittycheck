@@ -71,8 +71,15 @@ def get_twitter_token():
 
 @app.route('/login')
 def login():
+    if g.user:
+        return redirect(url_for("window_close"))
     return twitter.authorize(callback=url_for('oauth_authorized',
         next=request.args.get('next') or request.referrer or None))
+
+@app.route('/logout')
+def logout():
+    del session['user_id']
+    return redirect(url_for("window_close"))
 
 @app.route('/oauth-authorized')
 @twitter.authorized_handler
