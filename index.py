@@ -68,8 +68,9 @@ def api_comments(sitehash):
     callback = request.args.get('cb', None)
     checkin = get_checkin_by_hash(sitehash)
     if request.method == 'GET':
+        checkins = 0 if not checkin else int(checkin['checkins'])
         if not checkin or not checkin.has_key('comments') or len(checkin['comments']) == 0:
-            return jsonify({'error':"No comments yet", "checkins": 0, "comments": []})
+            return jsonify({'error':"No comments yet", "checkins": checkins, "comments": []})
     elif request.method == 'POST':
         text = request.form.get('text', '')
         if not text or len(text) == 0:
