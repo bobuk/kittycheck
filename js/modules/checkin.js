@@ -1,8 +1,7 @@
 define(['modules/api', 'modules/tmpl'], function (api, tmpl) {
     // показывает текст "ура, ты зачекинился 123-м"
     // и кнопку "показать комментарии" (позже это будет "авторизироваться")
-    // 
-    // после чекина вызывает callback
+    // После чекина вызывает callback
     return function (callback) {
         api.checkIn(function(data) {
             $('#kittycheck-container').html(tmpl('checkin_message_tmpl', data));

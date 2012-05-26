@@ -25,6 +25,20 @@ define(function() {
                 dataType: 'json',
                 success: callback
             });
+        },
+        sendComment: function (text, success, error) {
+            $.ajax({
+                url: absUrl + 'comments/' + siteId + '/',
+                type: 'post',
+                dataType: 'json',
+                data: {text: text},
+                success: function(resp) {
+                    resp.error ? error(resp) : success(resp);
+                },
+                error: function(e) {
+                    error('Ошибка ' + e.statusCode);
+                }
+            });
         }
     };
 });

@@ -5,6 +5,12 @@
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 <title>Iframe</title>
 
+<!--
+Этот файл не удалять
+он нужен для тестирования
+по сути здесь копия views/index.html только со своим site_uniq_id
+-->
+
 <div id="kittycheck-container"></div>
 
 <script type="text/html" id="checkin_message_tmpl">
@@ -15,3 +21,20 @@
     </div>
 </script>
 
+<script type="text/html" id="comments_page_tmpl">
+    <form action="" id="send-comment">
+        <div class="form">
+            <textarea placeholder="Напишите сюда хороший комментарий"></textarea>
+            <button class="btn btn-primary send" type="submit">Отправить</button>
+            <div class="send-loader"></div>
+        </div>
+    </form>
+    <div id="messages-container"></div>
+    <div class="loader"></div>
+</script>
+
+<script type="text/html" id="comment_tmpl">
+    <div class="comment">
+        <%= text %>
+    </div>
+</script>
