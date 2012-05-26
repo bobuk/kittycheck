@@ -88,13 +88,26 @@ def oauth_authorized(resp):
             name = resp['screen_name'],
             user_id = resp["user_id"],
         )
-        mongo.db.user.insert(user)
+        mongo.db.users.insert(user)
         del user['_id']
     user["oauth_token"] = resp['oauth_token']
     user["oauth_secret"] = resp['oauth_token_secret']
-    mongo.db.user.update({"user_id" : user["user_id"]}, user)
+    mongo.db.users.update({"user_id" : user["user_id"]}, user)
     session['user_id'] = user["user_id"]
     return redirect(next_url)
+
+@app.route('/api/v1/identity', methods = ['GET'])
+def api_authinfo():
+    if not g.user:
+        return session['user_id'] # abort(401)
+    res  = dict(
+        authenticated = True,
+        author = dict(
+            login = g.user['name'],
+            name  = g.user['name']
+        )
+    )
+    return jsonify(res)
 
 @app.route('/api/v1/checkin/<sitehash>/', methods = ['POST', 'GET'])
 def api_checkin(sitehash):
