@@ -17,7 +17,7 @@ define([
             if (comments && comments.length) {
                 var html = [];
                 $.each(comments, function(i, item){
-                    item.datetime = prettyDate(new Date(item.datetime));
+                    item.datetime = prettyDate(new Date(item.datetime*1000));
                     html.push(tmpl('comment_tmpl', item));
                 });
                 $noComments.hide();

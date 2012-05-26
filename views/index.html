@@ -15,15 +15,31 @@
     </div>
 </script>
 
-<script type="text/html" id="checkin_message_tmpl">
-    <form action="">
+<script type="text/html" id="comments_page_tmpl">
+    <form action="" id="send-comment">
         <div class="form">
-            <textarea></textarea>
-            <button class="btn btn-primary send" type="submit">Отправить</button>
-            <button class="btn cancel">Отменить</button>
+            <textarea placeholder="Напишите сюда хороший комментарий"></textarea>
+            <button class="btn btn-primary send" type="submit" title="Ctrl+Enter">Отправить</button>
+            <div class="send-loader"></div>
         </div>
     </form>
     <div id="messages-container"></div>
     <div class="loader"></div>
 </script>
 
+<script type="text/html" id="comment_tmpl">
+    <div class="comment">
+        <div class="header">
+            <a href="https://twitter.com/<%= author.login %>" target="_blank" class="account">
+                <img src="https://api.twitter.com/1/users/profile_image?screen_name=<%= author.login %>&size=normal" 
+                     alt="<%= author.login %>" class="avatar" />
+                <strong class="fullname"><%= author.name %></strong>
+                <span class="username">
+                    <s>@</s><b><%= author.login %></b>
+                </span>
+            </a>
+            <small class="time"><%= datetime %></small>
+        </div>
+        <p class="text"><%=text%></p>
+    </div>
+</script>

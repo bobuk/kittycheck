@@ -6,13 +6,14 @@ define(function() {
      * например так для хромиума
      * $ chromium-browser --disable-web-security &
      */
-    var absUrl = 'http://kittycheck.com/api/v1/',
+    var absUrl = 'http://kittycheck.com/',
+        apiUrl = absUrl + 'api/v1/',
         siteId = window.site_uniq_id;
 
     return {
         checkIn: function (callback) {
             $.ajax({
-                url: absUrl + 'checkin/' + siteId + '/',
+                url: apiUrl + 'checkin/' + siteId + '/',
                 type: 'post',
                 dataType: 'json',
                 success: callback
@@ -20,7 +21,7 @@ define(function() {
         },
         getComments: function (callback) {
             $.ajax({
-                url: absUrl + 'comments/' + siteId + '/',
+                url: apiUrl + 'comments/' + siteId + '/',
                 type: 'get',
                 dataType: 'json',
                 success: callback
@@ -28,7 +29,7 @@ define(function() {
         },
         sendComment: function (text, success, error) {
             $.ajax({
-                url: absUrl + 'comments/' + siteId + '/',
+                url: apiUrl + 'comments/' + siteId + '/',
                 type: 'post',
                 dataType: 'json',
                 data: {text: text},
@@ -38,6 +39,17 @@ define(function() {
                 error: function(e) {
                     error('Ошибка ' + e.statusCode);
                 }
+            });
+        },
+        getLoginUrl: function(){
+            return absUrl + 'login';
+        },
+        getIdentity: function(callback){
+            $.ajax({
+                url: apiUrl + 'identity/',
+                type: 'get',
+                dataType: 'json',
+                success: callback
             });
         }
     };
