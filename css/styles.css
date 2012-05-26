@@ -228,6 +228,11 @@ td { vertical-align: top; }
 .checkin-message {
     padding: 10px;
 }
+.loader {
+    width: 100%;
+    height: 210px;
+    background: url(img/ajax-loader.gif) 50% 50% no-repeat;
+}
 
 
 

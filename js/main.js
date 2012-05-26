@@ -12,7 +12,7 @@ require([
     $(function() {
         checkIn(function(params){
             params.commentsBtn.click(function(){
-                showComments(params.data.comments_url);
+                showComments();
             });
         });
     });

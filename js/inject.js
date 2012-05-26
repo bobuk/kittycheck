@@ -1,8 +1,8 @@
 jQuery.noConflict();
 (function($){
     
-    var IFRAME_URL = 'http://ec2-79-125-81-156.eu-west-1.compute.amazonaws.com:5000/iframe';
-//    var IFRAME_URL = 'index.html';
+//    var IFRAME_URL = 'http://ec2-79-125-81-156.eu-west-1.compute.amazonaws.com:5000/iframe';
+    var IFRAME_URL = 'index.html';
     
     $(function(){
         var $wrp = $('<div>')

@@ -10,10 +10,18 @@ define(function() {
         siteId = window.site_uniq_id;
         
     return {
-        checkIn: function(callback){
+        checkIn: function (callback) {
             $.ajax({
                 url: absUrl + 'checkin/' + siteId + '/',
                 type: 'post',
+                dataType: 'json',
+                success: callback
+            });
+        },
+        getComments: function (callback) {
+            $.ajax({
+                url: absUrl + 'comments/' + siteId + '/',
+                type: 'get',
                 dataType: 'json',
                 success: callback
             });
