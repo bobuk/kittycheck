@@ -17,7 +17,7 @@ app.secret_key = config.SECRET
 mongo = PyMongo(app)
 oauth = OAuth()
 
-twitter = oauth.remote_app('twitter',
+twitter = oauth.remote_app('KittyCheck',
     base_url='http://api.twitter.com/1/',
     request_token_url='http://api.twitter.com/oauth/request_token',
     access_token_url='http://api.twitter.com/oauth/access_token',
@@ -73,7 +73,7 @@ def get_twitter_token():
 @app.route('/login')
 def login():
     return twitter.authorize(callback=url_for('oauth_authorized',
-        next=request.args.get('next') or request.referrer or None))
+        next=request.args.get('next')))
 
 @app.route('/oauth-authorized')
 @twitter.authorized_handler
