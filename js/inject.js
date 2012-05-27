@@ -2,8 +2,8 @@ window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jq
 jQuery.noConflict();
 (function($){
 
-//    var IFRAME_URL = 'http://kittycheck.com/iframe';
-    var IFRAME_URL = 'index.html';
+    var IFRAME_URL = 'http://kittycheck.com/iframe';
+//    var IFRAME_URL = 'index.html';
 
     $(function(){
         var $wrp = $('<div>')
