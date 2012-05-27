@@ -98,9 +98,9 @@ def oauth_authorized(resp):
         )
         mongo.db.users.insert(user)
         del user['_id']
-    user_info =  simplejson.load(requests.get(twitter.expand_url('users/show.json'), params={
+    user_info =  simplejson.loads(requests.get(twitter.expand_url('users/show.json'), params={
             'screen_name': resp['screen_name']
-    }).text)
+    }).content)
     user["full_name"] = user_info['name']
     user["oauth_token"] = resp['oauth_token']
     user["oauth_secret"] = resp['oauth_token_secret']
