@@ -98,6 +98,10 @@ def oauth_authorized(resp):
         )
         mongo.db.users.insert(user)
         del user['_id']
+    user_info =  simplejson.load(requests.get(twitter.expand_url('users/show.json'), params={
+            'screen_name': resp['screen_name']
+    }).text)
+    user["full_name"] = user_info['name']
     user["oauth_token"] = resp['oauth_token']
     user["oauth_secret"] = resp['oauth_token_secret']
     mongo.db.users.update({"user_id" : user["user_id"]}, user)
@@ -165,7 +169,7 @@ def api_comments(sitehash):
             mongo.db.kitty.insert(checkin)
         checkin['comments'].insert(0, {
             "text": text,
-            "author": {"login": g.user['name'], "name": g.user['name']},
+            "author": {"login": g.user['full_name'] or g.user['name'], "name": g.user['name']},
             "datetime": str(time.mktime(datetime.now().timetuple()))
         })
         mongo.db.kitty.update({'sitehash': sitehash}, checkin)
