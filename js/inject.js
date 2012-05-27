@@ -27,6 +27,13 @@ kittycheck = function(){
 
                 $(function(){
                     $('head').append('<link rel="stylesheet" type="text/css" href="'+CSS_URL+'">');
+
+                    var $suid_meta = $('meta[name="site_uniq_id"]')
+                    if ($suid_meta)
+                    {
+                        IFRAME_URL = IFRAME_URL + '?site_uniq_id='+encodeURIComponent($suid_meta.attr('content'));
+                    }
+
                     var $wrp = $('<div>')
                         .css({left: $(document).width() - 600})
                         .addClass('kittycheck-wrp');
