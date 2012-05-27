@@ -4,8 +4,11 @@ jQuery.noConflict();
 
     var IFRAME_URL = 'http://kittycheck.com/iframe';
 //    var IFRAME_URL = 'index.html';
+//    var CSS_URL = 'css/inject.css'
+    var CSS_URL = 'http://kittycheck.com/css/inject.css'
 
     $(function(){
+        $('head').append('<link rel="stylesheet" type="text/css" href="'+CSS_URL+'">');
         var $wrp = $('<div>')
             .css({left: $(document).width() - 600})
             .addClass('kittycheck-wrp');
