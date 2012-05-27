@@ -142,7 +142,7 @@ kittycheck = function(){
                         return false;
                     });
 
-                    $('body').mouseup(function() {
+                    $(document).mouseup(function() {
                         clearTimeout(pressTimer)
                         delracker();
                     });
