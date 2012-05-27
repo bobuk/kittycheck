@@ -48,7 +48,7 @@ kittycheck = function(){
                             return length ? params : false;
                         }()) || {top: 30, right: 30};
                         
-                    // example: <meta name="kittycheck_checkin_color" content="rgba(0,0,0,0.1)" />
+                    // example: <meta name="kittycheck_checkin_color" content="rgba(0,0,0,0.2)" />
                     // allowed format: hex, rgb(a)
                     var $checkinColor = $('meta[name="kittycheck_checkin_color"]'),
                         checkinColor = $checkinColor.length && $checkinColor.attr('content')
