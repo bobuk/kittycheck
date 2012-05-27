@@ -53,7 +53,11 @@ kittycheck = function(){
                     var $checkinColor = $('meta[name="kittycheck_checkin_color"]'),
                         checkinColor = $checkinColor.length && $checkinColor.attr('content')
                                        || "rgba(0,0,0,0.2)";
-
+                    // example: <meta name="kittycheck_parent" content="h1" />
+                    // format: any css/jQuery selector
+                    var $parent = $('meta[name="kittycheck_parent"]'),
+                        parent = $parent.length && $parent.attr('content')
+                                       || "body";
                     var docHeight = $(document).height(),
                         docWidth = $(document).width(),
                         offset = 40,
@@ -97,7 +101,7 @@ kittycheck = function(){
                         .css(catCss)
                         .addClass('kittycheck-cat');
 
-                    $('body').append($cat, $wrp);
+                    $(parent).append($cat, $wrp);
                     $wrp.append($title, $iframeWrp);
                     $iframeWrp.append($iframe, $iframeFix);
                     $title.append($close);
