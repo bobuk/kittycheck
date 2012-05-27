@@ -10,7 +10,6 @@ from flask.ext.pymongo import PyMongo
 from flaskext.oauth import OAuth
 import config
 import bleach
-import urllib
 
 app = Flask("index")
 app.config.from_object(config)
@@ -99,10 +98,10 @@ def oauth_authorized(resp):
         )
         mongo.db.users.insert(user)
         del user['_id']
-    full_name =  twitter.get('users/show.json', data={
+    user_info =  simplejson.load(requests.get(twitter.expand_url('users/show.json'), params={
             'screen_name': resp['screen_name']
-    }).data['name']
-    user["full_name"] = full_name
+    }).text)
+    user["full_name"] = user_info['name']
     user["oauth_token"] = resp['oauth_token']
     user["oauth_secret"] = resp['oauth_token_secret']
     mongo.db.users.update({"user_id" : user["user_id"]}, user)
