@@ -39,13 +39,20 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
     (function($){
 
         var rumble = function(){
+            if(typeof soundManager !== 'undefined')
+            {
+                soundManager.play('rumble');   
+            }
+        }
+
+        var load_sm = function(){
             soundManager.url = '../../swf/';
 
             soundManager.onready(function() {
                 soundManager.createSound({
                   id:'rumble',
                   url:'../../rumble.mp3'
-                }).play();
+                }).load();
             });
 
             soundManager.beginDelayedInit(); // ensure start-up in case document.readyState and/or DOMContentLoaded are unavailable
@@ -53,8 +60,8 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
 
         var IFRAME_URL = 'http://kittycheck.com/iframe';
         var CSS_URL = 'http://kittycheck.com/css/inject.css'
-    //                var IFRAME_URL = 'index.html';
-    //                var CSS_URL = 'css/inject.css'
+        //var IFRAME_URL = 'index.html';
+        //var CSS_URL = 'css/inject.css'
 
         $.fn.checkin = function($wrp, color, should_rumble, callback){
             var pressTimer,
@@ -63,10 +70,7 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
 
             $(this).mousedown(function(e){
                 if (!$wrp.is(':visible')) {
-                    if (should_rumble)
-                    {
-                        typeof soundManager === 'undefined' ? loadScript('js/libs/soundmanager2-nodebug-jsmin.js', rumble) : rumble();
-                    }
+                    rumble();
                     addracker(e);
                     pressTimer = setTimeout(function() {
                         callback();
@@ -222,7 +226,12 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
 
             var $should_rumble = $('meta[name="kittycheck_rumble"]'),
                 should_rumble = $should_rumble.length && $parent.attr('content') || false;
-                
+            // Load mp3 as soon as possible
+            if (should_rumble)
+            {
+                typeof soundManager === 'undefined' ? loadScript('js/libs/soundmanager2-nodebug-jsmin.js', load_sm) : load_sm();
+            }
+
             var docHeight = $(document).height(),
                 docWidth = $(document).width(),
                 offset = 40,
