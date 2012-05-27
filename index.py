@@ -169,7 +169,7 @@ def api_comments(sitehash):
             mongo.db.kitty.insert(checkin)
         checkin['comments'].insert(0, {
             "text": text,
-            "author": {"login": g.user['full_name'] or g.user['name'], "name": g.user['name']},
+            "author": {"login": g.user['name'], "name": g.user['full_name'] or g.user['name']},
             "datetime": str(time.mktime(datetime.now().timetuple()))
         })
         mongo.db.kitty.update({'sitehash': sitehash}, checkin)
