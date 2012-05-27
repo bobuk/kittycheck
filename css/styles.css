@@ -376,6 +376,7 @@ body {
     color: #333;
     display: inline-block;
     margin-right: 7px;
+    font-size: 14px;
 }
 .comment .username {
     font-size: 12px;
