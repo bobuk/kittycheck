@@ -68,6 +68,7 @@ define([
                 renderComments(resp);
                 $text.val('');
                 toggleSendBtn(true);
+                $form.removeClass('focused');
             }, function(resp){
                 showNotification(resp.error, true);
                 toggleSendBtn(true);
