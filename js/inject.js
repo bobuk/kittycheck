@@ -20,19 +20,21 @@ kittycheck = function(){
             jQuery.noConflict();
             (function($){
 
-//                var IFRAME_URL = 'http://kittycheck.com/iframe';
-//                var CSS_URL = 'http://kittycheck.com/css/inject.css'
-                var IFRAME_URL = 'index.html';
-                var CSS_URL = 'css/inject.css'
+                var IFRAME_URL = 'http://kittycheck.com/iframe';
+                var CSS_URL = 'http://kittycheck.com/css/inject.css'
+//                var IFRAME_URL = 'index.html';
+//                var CSS_URL = 'css/inject.css'
 
                 $(function(){
                     $('head').append('<link rel="stylesheet" type="text/css" href="'+CSS_URL+'">');
 
+                    // example: <meta name="kittycheck_site_uniq_id" content="72f06eedb2fd5971d8fa9df1918793fe" />
                     var $suid_meta = $('meta[name="kittycheck_site_uniq_id"]');
                     if ($suid_meta.length) {
                         IFRAME_URL += '?site_uniq_id=' + encodeURIComponent($suid_meta.attr('content'));
                     }
 
+                    // example: <meta name="kittycheck_position" content="top=10,left=10" />
                     var $position = $('meta[name="kittycheck_position"]'),
                         catCss = $position.length && (function(){
                             var params = {}, length = 0;
@@ -45,6 +47,12 @@ kittycheck = function(){
                             });
                             return length ? params : false;
                         }()) || {top: 30, right: 30};
+                        
+                    // example: <meta name="kittycheck_checkin_color" content="rgba(0,0,0,0.1)" />
+                    // allowed format: hex, rgb(a)
+                    var $checkinColor = $('meta[name="kittycheck_checkin_color"]'),
+                        checkinColor = $checkinColor.length && $checkinColor.attr('content')
+                                       || "rgba(0,0,0,0.2)";
 
                     var $wrp = $('<div>')
                         .css({left: $(document).width() - 600})
@@ -72,7 +80,7 @@ kittycheck = function(){
                     $iframeWrp.append($iframe, $iframeFix);
                     $title.append($close);
 
-                    $cat.checkin($wrp, function () {
+                    $cat.checkin($wrp, checkinColor, function () {
                         $wrp.show();
                         $iframe.attr('src', IFRAME_URL);
                     });
@@ -93,7 +101,7 @@ kittycheck = function(){
                     });
                 });
 
-                $.fn.checkin = function($wrp, callback){
+                $.fn.checkin = function($wrp, color, callback){
                     var pressTimer,
                         milkTimer,
                         timeout = 1400;
@@ -113,7 +121,7 @@ kittycheck = function(){
                         delracker();
                     });
 
-                    function draw( color, size ) {
+                    function draw(size ) {
                         var milk = $('#kittychek-milk');
                         var a = 1.0 * milk.attr('value')
 
@@ -165,7 +173,7 @@ kittycheck = function(){
                         if (a < 6.2) {
                             a = a + 0.1;
                             milk.attr('value', '' + a);
-                            draw('#87CEEB', 75);
+                            draw(75);
                             milkTimer = setTimeout(timer, 20);
                         } else {
                             YouHooo();
