@@ -54,8 +54,30 @@ kittycheck = function(){
                         checkinColor = $checkinColor.length && $checkinColor.attr('content')
                                        || "rgba(0,0,0,0.2)";
 
-                    var $wrp = $('<div>')
-                        .css({left: $(document).width() - 600})
+                    var docHeight = $(document).height(),
+                        docWidth = $(document).width(),
+                        offset = 40,
+                        $wrp = $('<div>')
+                        .css({
+                            left: (function(){
+                                var left = catCss['left'] && parseInt(catCss['left']) 
+                                        || catCss['right'] && docWidth - parseInt(catCss['right']) || 0;
+                                if (left + offset + 500 > docWidth) {
+                                    left = docWidth - offset - 500 - 32;
+                                } else {
+                                    left += offset;
+                                }
+                                return left;
+                            }()),
+                            top: (function(){
+                                var top = catCss['top'] && parseInt(catCss['top']) 
+                                        || catCss['bottom'] && docHeight - parseInt(catCss['bottom']) || 0;
+                                if (top + 400 > docHeight) {
+                                    top = docHeight - 400;
+                                }
+                                return top;
+                            }())
+                        })
                         .addClass('kittycheck-wrp');
                     var $close = $('<a>')
                         .attr('href', 'javascript:void(0)')
