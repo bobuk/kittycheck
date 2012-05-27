@@ -12,7 +12,7 @@ require([
 ], function($, checkIn, showComments, twitterAuth) {
     $(function() {
         twitterAuth.checkIdentity(function(){
-            showComments();
+            showComments(true);
         }, function(){
             checkIn(function(data){
                 $('.sign-in').click(function(){

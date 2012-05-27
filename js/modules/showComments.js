@@ -4,7 +4,8 @@ define([
     'modules/prettyDate'
 ], function (api, tmpl, prettyDate) {
     // рендерит комментарии
-    return function () {
+    // @param bool makeCheckin Если true, то делает чекин
+    return function (doCheckin) {
         $('#kittycheck-container').html(tmpl('comments_page_tmpl'));
         var $loader = $('.loader'),
             $form = $('#send-comment'),
@@ -12,6 +13,11 @@ define([
             $submit = $('form .send'),
             $sendLoader = $('.form .send-loader'),
             $noComments = $('.no-comments');
+            
+        var showCheckIns = function(checkins){
+            $('.checkin-count').text(checkins);
+            $('.checkin-message-c').show();
+        }
         
         var renderComments = function (data) {
             var comments = data.comments;
@@ -26,8 +32,9 @@ define([
             } else {
                 $noComments.show();
             }
-            $('.checkin-count').text(data.checkins);
-            $('.checkin-message-c').show();
+            if (!doCheckin) {
+                showCheckIns(data.checkins);
+            }
         };
         
         var showNotification = function (msg, isError) {
@@ -66,6 +73,12 @@ define([
                 toggleSendBtn(true);
             });
         };
+        
+        if (doCheckin) {
+            api.checkIn(function(data){
+                showCheckIns(data.checkins);
+            });
+        }
         
         $loader.show();
         api.getComments(function(data){
