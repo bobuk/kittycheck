@@ -108,10 +108,11 @@ kittycheck = function(){
                     $title.append($close);
 
                     $cat.checkin($wrp, checkinColor, function () {
+                        $iframe.hide().attr('src', IFRAME_URL);
                         $wrp.show();
-                        if (!$iframe.prop('src')) {
-                            $iframe.attr('src', IFRAME_URL);
-                        }
+                        $iframe.load(function(){
+                            $iframe.show();
+                        });
                     });
 
                     $close.click(function(){
