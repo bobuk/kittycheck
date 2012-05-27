@@ -178,11 +178,8 @@ def window_close():
 
 @app.route('/iframe', methods = ['GET'])
 def get_iframe():
-    if request.args.get('site_uniq_id'):
-        rot = hash_validity(request.args.get('site_uniq_id'))
-    else:
-        referer = request.environ.get('HTTP_REFERER', '')
-        rot = hashlib.md5(referer).hexdigest() if referer else '0'
+    referer = request.environ.get('HTTP_REFERER', '')
+    rot = hashlib.md5(referer).hexdigest() if referer else '0'
     return open('views/index.html').read().replace('@@site_uniq_id@@', rot)
 
 @app.route('/deploy', methods=['GET', 'POST'])
