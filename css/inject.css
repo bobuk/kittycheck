@@ -3,8 +3,6 @@
     z-index: 4000;
     width: 32px;
     height: 32px;
-    top: 30px;
-    right: 30px;
     cursor: pointer;
     background: url(http://kittycheck.com/img/cat.png) no-repeat;
 }

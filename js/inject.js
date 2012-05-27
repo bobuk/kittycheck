@@ -20,19 +20,31 @@ kittycheck = function(){
             jQuery.noConflict();
             (function($){
 
-                var IFRAME_URL = 'http://kittycheck.com/iframe';
-            //    var IFRAME_URL = 'index.html';
-            //    var CSS_URL = 'css/inject.css'
-                var CSS_URL = 'http://kittycheck.com/css/inject.css'
+//                var IFRAME_URL = 'http://kittycheck.com/iframe';
+//                var CSS_URL = 'http://kittycheck.com/css/inject.css'
+                var IFRAME_URL = 'index.html';
+                var CSS_URL = 'css/inject.css'
 
                 $(function(){
                     $('head').append('<link rel="stylesheet" type="text/css" href="'+CSS_URL+'">');
 
-                    var $suid_meta = $('meta[name="site_uniq_id"]')
-                    if ($suid_meta)
-                    {
-                        IFRAME_URL = IFRAME_URL + '?site_uniq_id='+encodeURIComponent($suid_meta.attr('content'));
+                    var $suid_meta = $('meta[name="kittycheck_site_uniq_id"]');
+                    if ($suid_meta.length) {
+                        IFRAME_URL += '?site_uniq_id=' + encodeURIComponent($suid_meta.attr('content'));
                     }
+
+                    var $position = $('meta[name="kittycheck_position"]'),
+                        catCss = $position.length && (function(){
+                            var params = {}, length = 0;
+                            $.each($position.attr('content').split(','), function(i, param){
+                                param = param.split('=');
+                                if (param.length == 2) {
+                                    params[param[0]] = /^\d+$/.test(param[1]) ? parseInt(param[1]) : param[1];
+                                    length += 1;
+                                }
+                            });
+                            return length ? params : false;
+                        }()) || {top: 30, right: 30};
 
                     var $wrp = $('<div>')
                         .css({left: $(document).width() - 600})
@@ -52,6 +64,7 @@ kittycheck = function(){
                     var $iframeFix = $('<div>')
                         .addClass('kittycheck-iframefix');
                     var $cat = $('<div>')
+                        .css(catCss)
                         .addClass('kittycheck-cat');
 
                     $('body').append($cat, $wrp);
