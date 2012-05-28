@@ -46,20 +46,21 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
         }
 
         var load_sm = function(){
-            soundManager.url = '../../swf/';
+            soundManager.url = BASE_URL+'/swf/';
 
             soundManager.onready(function() {
                 soundManager.createSound({
                   id:'rumble',
-                  url:'../../rumble.mp3'
+                  url: BASE_URL+'/rumble.mp3'
                 }).load();
             });
 
             soundManager.beginDelayedInit(); // ensure start-up in case document.readyState and/or DOMContentLoaded are unavailable
         }
 
-        var IFRAME_URL = 'http://kittycheck.com/iframe';
-        var CSS_URL = 'http://kittycheck.com/css/inject.css'
+        var BASE_URL = 'http://kittycheck.com';
+        var IFRAME_URL = BASE_URL+'/iframe';
+        var CSS_URL = BASE_URL+'/css/inject.css'
         //var IFRAME_URL = 'index.html';
         //var CSS_URL = 'css/inject.css'
 
@@ -229,7 +230,7 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
             // Load mp3 as soon as possible
             if (should_rumble)
             {
-                typeof soundManager === 'undefined' ? loadScript('http://kittycheck.com/js/libs/soundmanager2-nodebug-jsmin.js', load_sm) : load_sm();
+                typeof soundManager === 'undefined' ? loadScript(BASE_URL+'/js/libs/soundmanager2-nodebug-jsmin.js', load_sm) : load_sm();
             }
 
             var docHeight = $(document).height(),
