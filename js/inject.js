@@ -233,30 +233,7 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                 typeof soundManager === 'undefined' ? loadScript(BASE_URL+'/js/libs/soundmanager2-nodebug-jsmin.js', load_sm) : load_sm();
             }
 
-            var docHeight = $(document).height(),
-                docWidth = $(document).width(),
-                offset = 40,
-                $wrp = $('<div>')
-                .css({
-                    left: (function(){
-                        var left = catCss['left'] && parseInt(catCss['left'])
-                                || catCss['right'] && docWidth - parseInt(catCss['right']) || 0;
-                        if (left + offset + 500 > docWidth) {
-                            left = docWidth - offset - 500 - 64;
-                        } else {
-                            left += offset;
-                        }
-                        return left;
-                    }()),
-                    top: (function(){
-                        var top = catCss['top'] && parseInt(catCss['top'])
-                                || catCss['bottom'] && docHeight - parseInt(catCss['bottom']) || 0;
-                        if (top + 400 > docHeight) {
-                            top = docHeight - 400;
-                        }
-                        return top;
-                    }())
-                })
+            var $wrp = $('<div>')
                 .addClass('kittycheck-wrp');
             var $close = $('<a>')
                 .attr('href', 'javascript:void(0)')
@@ -276,10 +253,27 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                 .css(catCss)
                 .addClass('kittycheck-cat');
 
-            $(parent).append($cat, $wrp);
+            $(parent).append($cat);
+            $('body').append($wrp);
             $wrp.append($title, $iframeWrp);
             $iframeWrp.append($iframe, $iframeFix);
             $title.append($close);
+            
+            setTimeout(function(){
+                $wrp.css({
+                    left: (function(){
+                        var offset = 40,
+                            left = $cat.offset().left;
+                        if (left + offset + 550 > $(document).width()) {
+                            left = left - 550 - offset;
+                        } else {
+                            left += offset;
+                        }
+                        return left;
+                    }()),
+                    top: $cat.offset().top
+                });
+            }, 0); // не знаю почему, но без этого иногда не работает правильно :(
 
             $cat.checkin($wrp, checkinColor, should_rumble, function () {
                 $iframe.hide().attr('src', IFRAME_URL);
