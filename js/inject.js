@@ -226,7 +226,7 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                 parent = $parent.length && $parent.attr('content') || "body";
 
             var $should_rumble = $('meta[name="kittycheck_rumble"]'),
-                should_rumble = $should_rumble.length && $parent.attr('content') || false;
+                should_rumble = $should_rumble.length && $should_rumble.attr('content') || false;
             // Load mp3 as soon as possible
             if (should_rumble)
             {
