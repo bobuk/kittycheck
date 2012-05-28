@@ -60,7 +60,7 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
 
         var BASE_URL = 'http://kittycheck.com';
         var IFRAME_URL = BASE_URL+'/iframe';
-        var CSS_URL = BASE_URL+'/css/inject.css'
+        var CSS_URL = BASE_URL+'/css/inject.css?1'
         //var IFRAME_URL = 'index.html';
         //var CSS_URL = 'css/inject.css'
 
