@@ -238,17 +238,17 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                 $wrp = $('<div>')
                 .css({
                     left: (function(){
-                        var left = catCss['left'] && parseInt(catCss['left']) 
+                        var left = catCss['left'] && parseInt(catCss['left'])
                                 || catCss['right'] && docWidth - parseInt(catCss['right']) || 0;
                         if (left + offset + 500 > docWidth) {
-                            left = docWidth - offset - 500 - 32;
+                            left = docWidth - offset - 500 - 64;
                         } else {
                             left += offset;
                         }
                         return left;
                     }()),
                     top: (function(){
-                        var top = catCss['top'] && parseInt(catCss['top']) 
+                        var top = catCss['top'] && parseInt(catCss['top'])
                                 || catCss['bottom'] && docHeight - parseInt(catCss['bottom']) || 0;
                         if (top + 400 > docHeight) {
                             top = docHeight - 400;
