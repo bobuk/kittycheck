@@ -229,7 +229,7 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
             // Load mp3 as soon as possible
             if (should_rumble)
             {
-                typeof soundManager === 'undefined' ? loadScript('js/libs/soundmanager2-nodebug-jsmin.js', load_sm) : load_sm();
+                typeof soundManager === 'undefined' ? loadScript('http://kittycheck.com/js/libs/soundmanager2-nodebug-jsmin.js', load_sm) : load_sm();
             }
 
             var docHeight = $(document).height(),
