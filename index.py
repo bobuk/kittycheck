@@ -1,11 +1,10 @@
 import sys;reload(sys); sys.setdefaultencoding('utf-8');
 import os
 sys.path.append('./libs/')
-import hashlib, simplejson, requests, random
+import hashlib, simplejson, requests
 from datetime import datetime
 import time
-import pymongo, bson
-from flask import Flask, render_template, request, Response, redirect, abort, session, send_from_directory, g, url_for
+from flask import Flask, request, Response, redirect, abort, session, send_from_directory, g, url_for
 from flask.ext.pymongo import PyMongo
 from flaskext.oauth import OAuth
 import config
