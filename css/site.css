@@ -1,0 +1,32 @@
+body {
+	background-image:url(http://chyo.ru/back-arrow.png);
+	background-repeat-x:no-repeat;
+	background-repeat-y:no-repeat;
+	background-repeat:no-repeat;
+	background-position:100% 0px;
+	background-position-x:100%;
+	background-position-y:0;
+}
+
+#mainblock {
+	width:600px;
+	-webkit-box-shadow:rgb(136, 136, 136) 5px 5px 5px;
+	box-shadow:rgb(136, 136, 136) 5px 5px 5px;
+	-o-box-shadow:rgb(136, 136, 136) 5px 5px 5px;
+	-ms-box-shadow:rgb(136, 136, 136) 5px 5px 5px;
+	-moz-box-shadow:rgb(136, 136, 136) 5px 5px 5px;
+	background-color:#F7F7F7;
+	border-top-width:0;
+	border-right-width:0;
+	border-bottom-width:0;
+	border-left-width:0;
+	border-style:initial;
+	border-top-color:#000000;
+	border-right-color:#000000;
+	border-bottom-color:#000000;
+	border-left-color:#000000;
+	border-image:initial;
+	opacity:0.75;
+	margin:2em auto auto auto;
+}
+

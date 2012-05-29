@@ -10,6 +10,7 @@ from flask.ext.pymongo import PyMongo
 from flaskext.oauth import OAuth
 import config
 import bleach
+import markdown
 
 app = Flask("index")
 app.config.from_object(config)
@@ -195,6 +196,13 @@ def deployment():
     os.system('git pull')
     return 'Done'
 
+@app.route('/', methods=['GET'])
+def index():
+    out = markdown.markdown(
+        open('site.ru.md','r').read(),
+        output_format = 'html5'
+    )
+    return open('views/site.html').read().replace('@@internal@@', out)
 
 @app.route('/<path:fullpath>')
 def static_router(fullpath):
