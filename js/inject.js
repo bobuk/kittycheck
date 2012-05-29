@@ -60,7 +60,7 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
 
         var BASE_URL = 'http://kittycheck.com';
         var IFRAME_URL = BASE_URL+'/iframe';
-        var CSS_URL = BASE_URL+'/css/inject.css?2';
+        var CSS_URL = BASE_URL+'/css/inject.css?1';
         //var IFRAME_URL = 'index.html';
         //var CSS_URL = 'css/inject.css';
 
@@ -213,7 +213,7 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                         }
                     });
                     return length ? params : false;
-                }()) || {top: 30, right: 30};
+                }()) || {top: 30, right: 30, position: 'absolute'};
 
             // example: <meta name="kittycheck_checkin_color" content="rgba(0,0,0,0.2)" />
             // allowed format: hex, rgb(a)
@@ -237,30 +237,9 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                 }
             }
 
-            var docHeight = $(document).height(),
-                docWidth = $(document).width(),
-                offset = 40,
+            var offset = 40,
+                wrpPositioned = false,
                 $wrp = $('<div>')
-                .css({
-                    left: (function(){
-                        var left = catCss['left'] && parseInt(catCss['left'], 10) ||
-                                   catCss['right'] && docWidth - parseInt(catCss['right'], 10) || 0;
-                        if (left + offset + 500 > docWidth) {
-                            left = docWidth - offset - 500 - 64;
-                        } else {
-                            left += offset;
-                        }
-                        return left;
-                    }()),
-                    top: (function(){
-                        var top = catCss['top'] && parseInt(catCss['top'], 10) ||
-                                catCss['bottom'] && docHeight - parseInt(catCss['bottom'], 10) || 0;
-                        if (top + 400 > docHeight) {
-                            top = docHeight - 400;
-                        }
-                        return top;
-                    }())
-                })
                 .addClass('kittycheck-wrp');
             var $close = $('<a>')
                 .attr('href', 'javascript:void(0)')
@@ -280,13 +259,30 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                 .css(catCss)
                 .addClass('kittycheck-cat');
 
-            $(parent).append($cat, $wrp);
+            $(parent).append($cat);
+            $('body').append($wrp);
             $wrp.append($title, $iframeWrp);
             $iframeWrp.append($iframe, $iframeFix);
             $title.append($close);
 
             $cat.checkin($wrp, checkinColor, should_rumble, function () {
                 $iframe.hide().attr('src', IFRAME_URL);
+                if (!wrpPositioned) {
+                    $wrp.css({
+                        left: (function(){
+                            var offset = 40,
+                                left = $cat.offset().left;
+                            if (left + offset + 550 > $(document).width()) {
+                                left = left - 550 - offset;
+                            } else {
+                                left += offset;
+                            }
+                            return left;
+                        }()),
+                        top: $cat.offset().top
+                    });
+                    wrpPositioned = true;
+                }
                 $wrp.show();
                 $iframe.load(function(){
                     $iframe.show();
