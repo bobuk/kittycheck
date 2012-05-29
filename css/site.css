@@ -17,14 +17,15 @@
 
 h1 {
 	margin-bottom:1em;
-	font-family:Lobster, cursive;
+	font-family:'Marck Script', cursive;
 	font-size:4em;
-	color:#006633;
+	color:#330066;
 }
 
 h2 {
 	margin-bottom:1em;
-	font-family:Lobster, cursive;
+	font-family:'Marck Script', cursive;
+	color:#007088;
 }
 
 body {
