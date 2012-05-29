@@ -60,21 +60,18 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
 
         var BASE_URL = 'http://kittycheck.com';
         var IFRAME_URL = BASE_URL+'/iframe';
-        var CSS_URL = BASE_URL+'/css/inject.css?1';
+        var CSS_URL = BASE_URL+'/css/inject.css?3';
         //var IFRAME_URL = 'index.html';
         //var CSS_URL = 'css/inject.css';
 
         $.fn.checkin = function($wrp, color, should_rumble, callback){
             var pressTimer,
                 milkTimer,
-                timeout = 1400,
                 mouseDown = function(e){
+                    e.preventDefault();
                     if (!$wrp.is(':visible')) {
                         rumble();
                         addracker(e);
-                        pressTimer = setTimeout(function() {
-                            callback();
-                        }, timeout);
                     }
                     return false;
                 },
@@ -91,7 +88,7 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
             $(document).mouseup(mouseUp);
 
             if (typeof document.addEventListener == 'function') {
-                document.addEventListener('touchstart', mouseDown, false);
+                this[0].addEventListener('touchstart', mouseDown, false);
                 document.addEventListener('touchend', mouseUp, false);
             }
 
@@ -143,6 +140,7 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
             }
 
             function YouHooo() {
+                callback();
                 delracker();
             }
 
