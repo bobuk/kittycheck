@@ -199,21 +199,7 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
             if ($suid_meta.length) {
                 IFRAME_URL += '?site_uniq_id=' + encodeURIComponent($suid_meta.attr('content'));
             }
-
-            // example: <meta name="kittycheck_position" content="top=10,left=10" />
-            var $position = $('meta[name="kittycheck_position"]'),
-                catCss = $position.length && (function(){
-                    var params = {}, length = 0;
-                    $.each($position.attr('content').split(','), function(i, param){
-                        param = param.split('=');
-                        if (param.length == 2) {
-                            params[param[0]] = /^\d+$/.test(param[1]) ? parseInt(param[1]) : param[1];
-                            length += 1;
-                        }
-                    });
-                    return length ? params : false;
-                }()) || {top: 30, right: 30};
-                
+               
             // example: <meta name="kittycheck_checkin_color" content="rgba(0,0,0,0.2)" />
             // allowed format: hex, rgb(a)
             var $checkinColor = $('meta[name="kittycheck_checkin_color"]'),
@@ -233,31 +219,6 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                 typeof soundManager === 'undefined' ? loadScript(BASE_URL+'/js/libs/soundmanager2-nodebug-jsmin.js', load_sm) : load_sm();
             }
 
-            var docHeight = $(document).height(),
-                docWidth = $(document).width(),
-                offset = 40,
-                $wrp = $('<div>')
-                .css({
-                    left: (function(){
-                        var left = catCss['left'] && parseInt(catCss['left'])
-                                || catCss['right'] && docWidth - parseInt(catCss['right']) || 0;
-                        if (left + offset + 500 > docWidth) {
-                            left = docWidth - offset - 500 - 64;
-                        } else {
-                            left += offset;
-                        }
-                        return left;
-                    }()),
-                    top: (function(){
-                        var top = catCss['top'] && parseInt(catCss['top'])
-                                || catCss['bottom'] && docHeight - parseInt(catCss['bottom']) || 0;
-                        if (top + 400 > docHeight) {
-                            top = docHeight - 400;
-                        }
-                        return top;
-                    }())
-                })
-                .addClass('kittycheck-wrp');
             var $close = $('<a>')
                 .attr('href', 'javascript:void(0)')
                 .attr('title', 'Закрыть')
@@ -273,10 +234,12 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
             var $iframeFix = $('<div>')
                 .addClass('kittycheck-iframefix');
             var $cat = $('<div>')
-                .css(catCss)
                 .addClass('kittycheck-cat');
+            var $wrp = $('<div>')
+                .addClass('kittycheck-wrp');
 
-            $(parent).append($cat, $wrp);
+            $(parent).append($cat);
+            $cat.append($wrp);
             $wrp.append($title, $iframeWrp);
             $iframeWrp.append($iframe, $iframeFix);
             $title.append($close);
