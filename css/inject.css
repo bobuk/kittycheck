@@ -1,6 +1,6 @@
 .kittycheck-cat {
     position: absolute;
-    z-index: 4000;
+    z-index: 99998;
     width: 64px;
     height: 64px;
     cursor: pointer;
