@@ -41,9 +41,9 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
         var rumble = function(){
             if(typeof soundManager !== 'undefined')
             {
-                soundManager.play('rumble');   
+                soundManager.play('rumble');
             }
-        }
+        };
 
         var load_sm = function(){
             soundManager.url = BASE_URL+'/swf/';
@@ -56,13 +56,13 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
             });
 
             soundManager.beginDelayedInit(); // ensure start-up in case document.readyState and/or DOMContentLoaded are unavailable
-        }
+        };
 
         var BASE_URL = 'http://kittycheck.com';
-        var IFRAME_URL = BASE_URL+'/iframe';
-        var CSS_URL = BASE_URL+'/css/inject.css?1'
-        //var IFRAME_URL = 'index.html';
-        //var CSS_URL = 'css/inject.css'
+        //var IFRAME_URL = BASE_URL+'/iframe';
+        //var CSS_URL = BASE_URL+'/css/inject.css?1';
+        var IFRAME_URL = 'index.html';
+        var CSS_URL = 'css/inject.css';
 
         $.fn.checkin = function($wrp, color, should_rumble, callback){
             var pressTimer,
@@ -91,11 +91,11 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
 
             function draw(size ) {
                 var milk = $('#kittychek-milk');
-                var a = 1.0 * milk.attr('value')
+                var a = 1.0 * milk.attr('value');
 
                 var sa = 1.5*Math.PI, ea = sa+a, r = size/2, lw = r* 0.3;
 
-                ctx = milk[0].getContext("2d")
+                ctx = milk[0].getContext("2d");
                 ctx.clearRect(0, 0, size, size);
 
                 ctx.lineWidth = lw;
@@ -145,8 +145,8 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                     milkTimer = setTimeout(timer, 20);
                 } else {
                     YouHooo();
-                };
-            }
+                }
+            };
         };
 
         $.fn.draggable = function(options) {
@@ -155,7 +155,6 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                     start: function(){},
                     stop: function(){}
                 },
-                options = $.extend({}, defaults, options),
                 $document = $(document),
                 mouse = {
                     update: function(e) {
@@ -163,6 +162,8 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                         this.y = e.pageY;
                 }
             };
+
+            options = $.extend({}, defaults, options);
 
             return this.each(function(){
                 var $elem = $(this),
@@ -174,8 +175,8 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                     }
                     $document.bind('mousemove.drag', function(e) {
                         $elem.css({
-                            left: (parseInt($elem.css('left'))||0) + (e.pageX - mouse.x) + 'px',
-                            top: (parseInt($elem.css('top'))||0) +  (e.pageY - mouse.y) + 'px'
+                            left: (parseInt($elem.css('left'), 10)||0) + (e.pageX - mouse.x) + 'px',
+                            top: (parseInt($elem.css('top'), 10)||0) +  (e.pageY - mouse.y) + 'px'
                         });
                         mouse.update(e);
                         e.preventDefault();
@@ -189,7 +190,7 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                     e.preventDefault();
                 });
             });
-        }
+        };
 
         $(function(){
             $('head').append('<link rel="stylesheet" type="text/css" href="'+CSS_URL+'">');
@@ -207,19 +208,18 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                     $.each($position.attr('content').split(','), function(i, param){
                         param = param.split('=');
                         if (param.length == 2) {
-                            params[param[0]] = /^\d+$/.test(param[1]) ? parseInt(param[1]) : param[1];
+                            params[param[0]] = /^\d+$/.test(param[1]) ? parseInt(param[1], 10) : param[1];
                             length += 1;
                         }
                     });
                     return length ? params : false;
                 }()) || {top: 30, right: 30};
-                
+
             // example: <meta name="kittycheck_checkin_color" content="rgba(0,0,0,0.2)" />
             // allowed format: hex, rgb(a)
             var $checkinColor = $('meta[name="kittycheck_checkin_color"]'),
-                checkinColor = $checkinColor.length && $checkinColor.attr('content')
-                               || "rgba(0,0,0,0.2)";
-                           
+                checkinColor = $checkinColor.length && $checkinColor.attr('content') || "rgba(0,0,0,0.2)";
+
             // example: <meta name="kittycheck_parent" content="h1" />
             // format: any css/jQuery selector
             var $parent = $('meta[name="kittycheck_parent"]'),
@@ -230,7 +230,11 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
             // Load mp3 as soon as possible
             if (should_rumble)
             {
-                typeof soundManager === 'undefined' ? loadScript(BASE_URL+'/js/libs/soundmanager2-nodebug-jsmin.js', load_sm) : load_sm();
+                if (typeof soundManager === 'undefined') {
+                    loadScript(BASE_URL+'/js/libs/soundmanager2-nodebug-jsmin.js', load_sm);
+                } else {
+                    load_sm();
+                }
             }
 
             var docHeight = $(document).height(),
@@ -239,8 +243,8 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                 $wrp = $('<div>')
                 .css({
                     left: (function(){
-                        var left = catCss['left'] && parseInt(catCss['left'])
-                                || catCss['right'] && docWidth - parseInt(catCss['right']) || 0;
+                        var left = catCss['left'] && parseInt(catCss['left'], 10) ||
+                                   catCss['right'] && docWidth - parseInt(catCss['right'], 10) || 0;
                         if (left + offset + 500 > docWidth) {
                             left = docWidth - offset - 500 - 64;
                         } else {
@@ -249,8 +253,8 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                         return left;
                     }()),
                     top: (function(){
-                        var top = catCss['top'] && parseInt(catCss['top'])
-                                || catCss['bottom'] && docHeight - parseInt(catCss['bottom']) || 0;
+                        var top = catCss['top'] && parseInt(catCss['top'], 10) ||
+                                catCss['bottom'] && docHeight - parseInt(catCss['bottom'], 10) || 0;
                         if (top + 400 > docHeight) {
                             top = docHeight - 400;
                         }
