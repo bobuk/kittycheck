@@ -22,7 +22,7 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    z-index: 4001;
+    z-index: 99998;
 }
 .kittycheck-title {
     font-size: 14px;
@@ -35,6 +35,8 @@
 }
 .kittycheck-iframe-wrp {
     position: relative;
+    overflow: auto;
+    -webkit-overflow-scrolling': touch;
 }
 .kittycheck-iframefix {
     display: none;
@@ -43,7 +45,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: 4002;
+    z-index: 99999;
     opacity: 0.1;
 }
 .kittycheck-close {
