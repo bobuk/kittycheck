@@ -16,7 +16,15 @@
 }
 
 h1 {
-	margin-bottom:2em;
+	margin-bottom:1em;
+	font-family:Lobster, cursive;
+	font-size:4em;
+	color:#006633;
+}
+
+h2 {
+	margin-bottom:1em;
+	font-family:Lobster, cursive;
 }
 
 body {
@@ -36,7 +44,6 @@ body {
 	-o-box-shadow:rgb(136, 136, 136) 5px 5px 5px;
 	-ms-box-shadow:rgb(136, 136, 136) 5px 5px 5px;
 	-moz-box-shadow:rgb(136, 136, 136) 5px 5px 5px;
-	background-color:#F7F7F7;
 	border-top-width:0;
 	border-right-width:0;
 	border-bottom-width:0;
@@ -48,6 +55,7 @@ body {
 	border-left-color:#000000;
 	border-image:initial;
 	opacity:0.75;
+	background-color:#FFDDFE;
 	margin:2em auto 2em auto;
 	padding:1em;
 }
