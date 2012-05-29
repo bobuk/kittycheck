@@ -123,6 +123,11 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
             }
 
             function addracker(e) {
+                try {
+                    var touches = e.touches.item(0);
+                    e.clientX = touches.clientX;
+                    e.clientY = touches.clientY;
+                } catch (e) {}
                 $('body').append(
                     "<canvas id='kittychek-milk' "+
                     " width=75 height=75 " +

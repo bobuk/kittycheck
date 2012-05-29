@@ -68,4 +68,5 @@
     width: 500px;
     height: 360px;
     border: none;
+    overflow: hidden;
 }
