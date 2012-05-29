@@ -29,7 +29,7 @@
     color: #646464;
     height: 17px;
     border-bottom: 1px solid #BEBEBE;
-    padding: 10px 5px;
+    padding: 10px;
     position: relative;
     cursor: move;
 }
@@ -55,14 +55,15 @@
     height: 20px;
     font-weight: bold;
     font-size: 20px;
-    color: 
+    line-height: 20px;
+    color:
     #999;
     text-decoration: none;
-    line-height: 20px;
     text-align: center;
 }
 .kittycheck-close:hover {
     color: #444;
+    text-decoration: none;
 }
 .kittycheck-iframe {
     width: 500px;
