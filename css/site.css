@@ -16,20 +16,21 @@
 }
 
 h1 {
-	margin-bottom:1em;
 	font-family:'Marck Script', cursive;
-	font-size:4em;
-	color:#330066;
 	text-decoration:none;
 	font-weight:normal;
+	color:#000000;
+	margin-bottom:0.5em;
+	font-size:5em;
 }
 
 h2 {
 	margin-bottom:1em;
 	font-family:'Marck Script', cursive;
-	color:#007088;
 	text-decoration:none;
 	font-weight:normal;
+	font-style:normal;
+	font-size:24pt;
 }
 
 body {
@@ -49,18 +50,15 @@ body {
 	-o-box-shadow:rgb(136, 136, 136) 5px 5px 5px;
 	-ms-box-shadow:rgb(136, 136, 136) 5px 5px 5px;
 	-moz-box-shadow:rgb(136, 136, 136) 5px 5px 5px;
-	border-top-width:0;
-	border-right-width:0;
-	border-bottom-width:0;
-	border-left-width:0;
-	border-style:initial;
-	border-top-color:#000000;
-	border-right-color:#000000;
-	border-bottom-color:#000000;
-	border-left-color:#000000;
-	border-image:initial;
 	opacity:0.75;
-	background-color:#FFDDFE;
+	background-color:#FDFDFA;
+	border-image:initial;
+	border-bottom-style:none;
+	border-right-style:none;
+	border-bottom-width:0;
+	border-right-width:0;
+	border-left:1px solid #9C9C9C;
+	border-top:1px solid #9C9C9C;
 	margin:2em auto 2em auto;
 	padding:0em 1em 1em 1em;
 }
