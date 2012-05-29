@@ -67,27 +67,33 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
         $.fn.checkin = function($wrp, color, should_rumble, callback){
             var pressTimer,
                 milkTimer,
-                timeout = 1400;
+                timeout = 1400,
+                mouseDown = function(e){
+                    if (!$wrp.is(':visible')) {
+                        rumble();
+                        addracker(e);
+                        pressTimer = setTimeout(function() {
+                            callback();
+                        }, timeout);
+                    }
+                    return false;
+                },
+                mouseUp = function() {
+                    clearTimeout(pressTimer);
+                    delracker();
+                    if(typeof soundManager !== 'undefined' && !$wrp.is(':visible'))
+                    {
+                        soundManager.stopAll();
+                    }
+                };
 
-            $(this).mousedown(function(e){
-                if (!$wrp.is(':visible')) {
-                    rumble();
-                    addracker(e);
-                    pressTimer = setTimeout(function() {
-                        callback();
-                    }, timeout);
-                }
-                return false;
-            });
+            $(this).mousedown(mouseDown);
+            $(document).mouseup(mouseUp);
 
-            $(document).mouseup(function() {
-                clearTimeout(pressTimer);
-                delracker();
-                if(typeof soundManager !== 'undefined' && !$wrp.is(':visible'))
-                {
-                    soundManager.stopAll();
-                }
-            });
+            if (typeof document.addEventListener == 'function') {
+                document.addEventListener('touchstart', mouseDown, false);
+                document.addEventListener('touchend', mouseUp, false);
+            }
 
             function draw(size ) {
                 var milk = $('#kittychek-milk');
