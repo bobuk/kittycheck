@@ -28,5 +28,11 @@ body {
 	border-image:initial;
 	opacity:0.75;
 	margin:2em auto auto auto;
+	padding:1em;
+}
+
+code {
+	font-family:serif;
+	color:#007088;
 }
 

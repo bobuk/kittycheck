@@ -200,6 +200,7 @@ def deployment():
 def index():
     out = markdown.markdown(
         open('site.ru.md','r').read(),
+        extensions=['fenced_code', 'toc'],
         output_format = 'html5'
     )
     return open('views/site.html').read().replace('@@internal@@', out)
