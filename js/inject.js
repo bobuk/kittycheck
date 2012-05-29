@@ -68,6 +68,7 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
             var pressTimer,
                 milkTimer,
                 mouseDown = function(e){
+                    e.preventDefault();
                     if (!$wrp.is(':visible')) {
                         rumble();
                         addracker(e);
