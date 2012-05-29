@@ -36,6 +36,8 @@
 .kittycheck-iframe-wrp {
     position: relative;
     overflow: auto;
+    width: 500px;
+    height: 360px;
     -webkit-overflow-scrolling: touch;
 }
 .kittycheck-iframefix {
