@@ -34,7 +34,7 @@ function loadScript(sURL, onLoad) {
 
 }
 
-loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function(){
+function inject() {
     jQuery.noConflict();
     (function($){
 
@@ -59,10 +59,10 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
         };
 
         var BASE_URL = 'http://kittycheck.com';
-        var IFRAME_URL = BASE_URL+'/iframe';
-        var CSS_URL = BASE_URL+'/css/inject.css?3';
-        //var IFRAME_URL = 'index.html';
-        //var CSS_URL = 'css/inject.css';
+        //var IFRAME_URL = BASE_URL+'/iframe';
+        //var CSS_URL = BASE_URL+'/css/inject.css?3';
+        var IFRAME_URL = 'index.html';
+        var CSS_URL = 'css/inject.css';
 
         $.fn.checkin = function($wrp, color, should_rumble, callback){
             var pressTimer,
@@ -313,5 +313,11 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                 }
             });
         });
-    }(jQuery));
-});
+    }(jQuery));   
+}
+
+if (typeof jQuery === 'undefined') {
+    loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', inject);
+} else {
+    inject();
+}
