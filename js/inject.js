@@ -32,6 +32,7 @@
             var pressTimer,
                 milkTimer,
                 mouseDown = function(e){
+                    e.preventDefault();
                     if (!$wrp.is(':visible')) {
                         rumble();
                         addracker(e);
