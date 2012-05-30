@@ -18,3 +18,5 @@ TWITTER = dict(
     consumer_key='консумер кей всегда секрет',
     consumer_secret='консумер секрет всегда кей'
 )
+
+API_BASE_URL = 'http://127.0.0.1:5000'

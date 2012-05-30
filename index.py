@@ -188,7 +188,9 @@ def get_iframe():
     else:
         referer = request.environ.get('HTTP_REFERER', '')
         rot = hashlib.md5(referer).hexdigest() if referer else '0'
-    return open('views/index.html').read().replace('@@site_uniq_id@@', rot)
+    return open('views/index.html').read()\
+        .replace('@@site_uniq_id@@', rot)\
+        .replace('@@api_base_url@@', config.API_BASE_URL)
 
 @app.route('/deploy', methods=['GET', 'POST'])
 def deployment():
@@ -206,6 +208,8 @@ def index():
 
 @app.route('/<path:fullpath>')
 def static_router(fullpath):
+    if fullpath.endswith('inject.js') or fullpath.endswith('api.js'):
+        pass
     return send_from_directory('.', fullpath)
 
 if __name__ == "__main__":
