@@ -1,11 +1,10 @@
 import sys;reload(sys); sys.setdefaultencoding('utf-8');
 import os
 sys.path.append('./libs/')
-import hashlib, simplejson, requests, random
+import hashlib, simplejson, requests
 from datetime import datetime
 import time
-import pymongo, bson
-from flask import Flask, render_template, request, Response, redirect, abort, session, send_from_directory, g, url_for
+from flask import Flask, request, Response, redirect, abort, session, send_from_directory, g, url_for
 from flask.ext.pymongo import PyMongo
 from flaskext.oauth import OAuth
 import config
@@ -189,7 +188,9 @@ def get_iframe():
     else:
         referer = request.environ.get('HTTP_REFERER', '')
         rot = hashlib.md5(referer).hexdigest() if referer else '0'
-    return open('views/index.html').read().replace('@@site_uniq_id@@', rot)
+    return open('views/index.html').read()\
+        .replace('@@site_uniq_id@@', rot)\
+        .replace('@@api_base_url@@', config.API_BASE_URL)
 
 @app.route('/deploy', methods=['GET', 'POST'])
 def deployment():
@@ -207,6 +208,8 @@ def index():
 
 @app.route('/<path:fullpath>')
 def static_router(fullpath):
+    if fullpath.endswith('inject.js') or fullpath.endswith('api.js'):
+        pass
     return send_from_directory('.', fullpath)
 
 if __name__ == "__main__":

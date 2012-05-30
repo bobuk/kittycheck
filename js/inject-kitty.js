@@ -22,7 +22,22 @@
             soundManager.beginDelayedInit(); // ensure start-up in case document.readyState and/or DOMContentLoaded are unavailable
         };
 
-        var BASE_URL = 'http://kittycheck.com';
+        var $src = function(script){
+            if (script.getAttribute.length !== undefined) {
+                return script.src
+            }
+
+            return script.getAttribute('src', -1)
+        };
+
+        var injectKittyScriptFileName = '/js/inject-kitty.js';
+        var absUrl = $(document.getElementsByTagName('script'))
+            .map(function(){ return $src(this); })
+            .filter(function(){
+                return this.indexOf(injectKittyScriptFileName) != -1;
+            }).get()[0];
+        var BASE_URL = absUrl.substring(0, absUrl.length - injectKittyScriptFileName.length);
+
         var IFRAME_URL = BASE_URL+'/iframe';
         var CSS_URL = BASE_URL+'/css/inject.css?3';
         //var IFRAME_URL = 'index.html';
