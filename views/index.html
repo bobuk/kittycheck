@@ -10,7 +10,7 @@
 <script type="text/html" id="checkin_message_tmpl">
     <div class="checkin-page">
         <div class="checkin-message">
-            Ура! Ты зачекинился тут <span class="checkin-count"><%= checkins %></span>-м!
+            Ура! Ты погладил кота <span class="checkin-count"><%= checkins %></span>-м!
         </div>
         <div class="auth-message">
           <button class="btn btn-primary sign-in">Авторизироваться через <b>twitter</b></button>
@@ -21,7 +21,7 @@
 
 <script type="text/html" id="comments_page_tmpl">
     <div class="checkin-message-c">
-        Ура! Ты зачекинился тут <span class="checkin-count"></span>-м!
+        Ура! Ты погладил кота <span class="checkin-count"></span>-м!
     </div>
     <form action="" id="send-comment">
         <div class="form">
@@ -38,7 +38,7 @@
     <div class="comment">
         <div class="header">
             <a href="https://twitter.com/<%= author.login %>" target="_blank" class="account">
-                <img src="https://api.twitter.com/1/users/profile_image?screen_name=<%= author.login %>&size=normal" 
+                <img src="https://api.twitter.com/1/users/profile_image?screen_name=<%= author.login %>&size=normal"
                      alt="<%= author.login %>" class="avatar" />
                 <strong class="fullname"><%= author.name %></strong>
                 <span class="username">
