@@ -1,6 +1,6 @@
 define(function() {
 
-    var absUrl = 'http://kittycheck.com/',
+    var absUrl = '',
         apiUrl = absUrl + 'api/v1/',
         siteId = window.site_uniq_id;
 

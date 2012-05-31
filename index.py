@@ -1,4 +1,4 @@
-import sys;reload(sys); sys.setdefaultencoding('utf-8');
+import sys;reload(sys);sys.setdefaultencoding('utf-8');
 import os
 sys.path.append('./libs/')
 import hashlib, simplejson, requests, random
@@ -208,6 +208,10 @@ def index():
 @app.route('/<path:fullpath>')
 def static_router(fullpath):
     return send_from_directory('.', fullpath)
+
+with open('js/__inject.js', 'r') as _js:
+    with open('js/inject.js', 'w') as js:
+        js.write(_js.read().replace('@@BASE_URL@@', config.BASE_URL))
 
 if __name__ == "__main__":
     app.run()
