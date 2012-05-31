@@ -98,11 +98,18 @@
                     e.clientY = touches.clientY;
                 } catch (e) {}
                 $('body').append(
-                    "<canvas id='kittychek-milk' "+
-                    " width=75 height=75 " +
-                    "style='position: absolute; " +
-                    "left: " + (e.clientX-35) + "px; " +
-                    "top: "  + (e.clientY-35) +  "px;' value='0'/>");
+                    $('<canvas>')
+                    .attr('id', 'kittychek-milk')
+                    .attr('width', '75')
+                    .attr('height', '75')
+                    .attr('value' , '0')
+                    .css({
+                        position: 'absolute',
+                        'z-index': 99999,
+                        left: e.clientX - 35,
+                        top: e.clientY - 35
+                    })
+                );
                 timer();
             }
 
