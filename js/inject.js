@@ -1,42 +1,6 @@
-/*
- * Dynamic script loading helper
- * Normalizes good browser onload() vs. IE readyState weirdness
- */
+(function(){
 
-
-function loadScript(sURL, onLoad) {
-
-  function loadScriptHandler() {
-    var rs = this.readyState;
-    if (rs == 'loaded' || rs == 'complete') {
-      this.onreadystatechange = null;
-      this.onload = null;
-      if (onLoad) {
-        onLoad();
-      }
-    }
-  }
-
-  function scriptOnload() {
-    this.onreadystatechange = null;
-    this.onload = null;
-    window.setTimeout(onLoad,20);
-  }
-
-  var oS = document.createElement('script');
-  oS.type = 'text/javascript';
-  if (onLoad) {
-    oS.onreadystatechange = loadScriptHandler;
-    oS.onload = scriptOnload;
-  }
-  oS.src = sURL;
-  document.getElementsByTagName('head')[0].appendChild(oS);
-
-}
-
-loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function(){
-    jQuery.noConflict();
-    (function($){
+    var inject = function($){
 
         var rumble = function(){
             if(typeof soundManager !== 'undefined')
@@ -313,5 +277,47 @@ loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', functio
                 }
             });
         });
-    }(jQuery));
-});
+    };
+
+    /*
+     * Dynamic script loading helper
+     * Normalizes good browser onload() vs. IE readyState weirdness
+     */
+    function loadScript(sURL, onLoad) {
+
+      function loadScriptHandler() {
+        var rs = this.readyState;
+        if (rs == 'loaded' || rs == 'complete') {
+          this.onreadystatechange = null;
+          this.onload = null;
+          if (onLoad) {
+            onLoad();
+          }
+        }
+      }
+
+      function scriptOnload() {
+        this.onreadystatechange = null;
+        this.onload = null;
+        window.setTimeout(onLoad,20);
+      }
+
+      var oS = document.createElement('script');
+      oS.type = 'text/javascript';
+      if (onLoad) {
+        oS.onreadystatechange = loadScriptHandler;
+        oS.onload = scriptOnload;
+      }
+      oS.src = sURL;
+      document.getElementsByTagName('head')[0].appendChild(oS);
+    }
+
+    if (typeof jQuery === 'undefined') {
+        loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function(){
+            inject(jQuery.noConflict());
+        });
+    } else {
+        inject(jQuery);
+    }
+
+}());
