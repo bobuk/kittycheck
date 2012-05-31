@@ -22,7 +22,7 @@
             soundManager.beginDelayedInit(); // ensure start-up in case document.readyState and/or DOMContentLoaded are unavailable
         };
 
-        var BASE_URL = '//127.0.0.1:5000';
+        var BASE_URL = '@@BASE_URL@@';
         var IFRAME_URL = BASE_URL+'/iframe';
         var CSS_URL = BASE_URL+'/css/inject.css?3';
         //var IFRAME_URL = 'index.html';
