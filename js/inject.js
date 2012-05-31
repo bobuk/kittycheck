@@ -2,6 +2,14 @@
 
     var inject = function($){
 
+        var cats = {
+            'default': {
+                url: 'http://kittycheck.com/img/cat1.png',
+                width: 64,
+                height: 64
+            }
+        };
+
         var rumble = function(){
             if(typeof soundManager !== 'undefined')
             {
@@ -174,6 +182,23 @@
                 IFRAME_URL += '?site_uniq_id=' + encodeURIComponent($suid_meta.attr('content'));
             }
 
+            // example: <meta name="kittycheck_cat" content="default" />
+            var $catImg = $('meta[name="kittycheck_cat"]');
+            var imgId;
+            try {
+                imgId = $catImg.attr('content');
+                if (!cats[imgId].url) {
+                    throw '';
+                }
+            } catch (e) {
+                imgId = 'default';
+            }
+            var catImg = {
+                'background-image': "url('" + cats[imgId].url + "')",
+                width: cats[imgId].width,
+                height: cats[imgId].height
+            };
+
             // example: <meta name="kittycheck_position" content="top=10,left=10" />
             var $position = $('meta[name="kittycheck_position"]'),
                 catCss = $position.length && (function(){
@@ -229,7 +254,7 @@
             var $iframeFix = $('<div>')
                 .addClass('kittycheck-iframefix');
             var $cat = $('<div>')
-                .css(catCss)
+                .css($.extend({}, catCss, catImg))
                 .addClass('kittycheck-cat');
 
             $(parent).append($cat);
