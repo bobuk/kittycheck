@@ -107,6 +107,7 @@ def oauth_authorized(resp):
     user["oauth_secret"] = resp['oauth_token_secret']
     mongo.db.users.update({"user_id" : user["user_id"]}, user)
     session['user_id'] = user["user_id"]
+    session.permanent = True
     return redirect(next_url)
 
 @app.route('/api/v1/identity/', methods = ['GET'])
