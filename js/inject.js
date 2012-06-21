@@ -32,7 +32,7 @@
 
         var BASE_URL = 'http://kittycheck.com';
         var IFRAME_URL = BASE_URL+'/iframe';
-        var CSS_URL = BASE_URL+'/css/inject.css?3';
+        var CSS_URL = BASE_URL+'/css/inject.css?4';
         //var IFRAME_URL = 'index.html';
         //var CSS_URL = 'css/inject.css';
 
