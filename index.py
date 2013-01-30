@@ -208,7 +208,8 @@ def index():
 
 @app.route('/<path:fullpath>')
 def static_router(fullpath):
-    return send_from_directory('.', fullpath)
+    if not fullpath.endswith('.py'):
+        return send_from_directory('.', fullpath)
 
 if __name__ == "__main__":
     app.run()
