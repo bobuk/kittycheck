@@ -183,6 +183,12 @@
         $(function(){
             $('head').append('<link rel="stylesheet" type="text/css" href="'+CSS_URL+'">');
 
+            // IE 8 canvas support, better use modernizr here for detection
+            if ($.browser.msie && parseInt($.browser.version, 10) <= 8)
+            {
+                loadScript(BASE_URL+'/js/libs/excanvas.js', function() {});
+            }
+
             // example: <meta name="kittycheck_site_uniq_id" content="72f06eedb2fd5971d8fa9df1918793fe" />
             var $suid_meta = $('meta[name="kittycheck_site_uniq_id"]');
             if ($suid_meta.length) {
