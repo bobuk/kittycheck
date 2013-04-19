@@ -32,6 +32,9 @@
     padding: 10px;
     position: relative;
     cursor: move;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
 }
 .kittycheck-iframe-wrp {
     position: relative;
