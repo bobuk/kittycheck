@@ -7,7 +7,7 @@ import time
 import pymongo, bson
 from flask import Flask, render_template, request, Response, redirect, abort, session, send_from_directory, g, url_for
 from flask.ext.pymongo import PyMongo
-from flaskext.oauth import OAuth
+from flask.ext.oauth import OAuth
 import config
 import bleach
 import markdown
