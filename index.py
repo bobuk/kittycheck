@@ -90,7 +90,6 @@ def oauth_authorized(resp):
     next_url = request.args.get('next') or url_for('window_close')
     if resp is None:
         return redirect(next_url)
-
     user = mongo.db.users.find_one({"name": resp['screen_name']})
     if user is None:
         user = dict(
@@ -99,9 +98,10 @@ def oauth_authorized(resp):
         )
         mongo.db.users.insert(user)
         del user['_id']
-    user_info =  simplejson.loads(requests.get(twitter.expand_url('users/show.json'), params={
+    user_info =  twitter.get('users/show.json', data={
             'screen_name': resp['screen_name']
-    }).content)
+        })
+    user_info = user_info.data
     user["full_name"] = user_info['name']
     user["oauth_token"] = resp['oauth_token']
     user["oauth_secret"] = resp['oauth_token_secret']
@@ -164,7 +164,6 @@ def api_comments(sitehash):
                 text,
                 tags = ['i','b','strong','h3']
             ),
-            nofollow = True
         )
         if not checkin:
             checkin = get_default_checkin(sitehash)
