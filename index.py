@@ -22,10 +22,10 @@ twitter = oauth.remote_app('KittyCheck',
     consumer_key=config.TWITTER["consumer_key"],
     consumer_secret=config.TWITTER["consumer_secret"],
 
-    base_url='http://api.twitter.com/1.1/',
-    request_token_url='http://api.twitter.com/oauth/request_token',
-    access_token_url='http://api.twitter.com/oauth/access_token',
-    authorize_url='http://api.twitter.com/oauth/authenticate',
+    base_url='https://api.twitter.com/1.1/',
+    request_token_url='https://api.twitter.com/oauth/request_token',
+    access_token_url='https://api.twitter.com/oauth/access_token',
+    authorize_url='https://api.twitter.com/oauth/authenticate',
 )
 
 def jsonify(hash, callback = None):
@@ -66,17 +66,15 @@ def before_request():
         )
 
 @twitter.tokengetter
-def get_twitter_token():
-    user = g.user
-    if user is not None:
-        return user["oauth_token"], user["oauth_secret"]
+def get_twitter_token(token=None):
+    return session.get('twitter_token')
 
 @app.route('/login')
 def login():
     if g.user:
         return redirect(url_for("window_close"))
     return twitter.authorize(callback=url_for('oauth_authorized',
-        next=request.args.get('next')))
+        next=request.args.get('next') or request.referrer or None))
 
 @app.route('/logout')
 def logout():
@@ -87,9 +85,16 @@ def logout():
 @app.route('/oauth-authorized')
 @twitter.authorized_handler
 def oauth_authorized(resp):
-    next_url = request.args.get('next') or url_for('window_close')
+    next_url = request.args.get('next') or url_for('index')
     if resp is None:
         return redirect(next_url)
+
+    session['twitter_token'] = (
+        resp['oauth_token'],
+        resp['oauth_token_secret']
+    )
+    session['twitter_user'] = resp['screen_name']
+
     user = mongo.db.users.find_one({"name": resp['screen_name']})
     if user is None:
         user = dict(
@@ -98,16 +103,13 @@ def oauth_authorized(resp):
         )
         mongo.db.users.insert(user)
         del user['_id']
-    user_info =  twitter.get('users/show.json', data={
-            'screen_name': resp['screen_name']
-        })
+    user_info = twitter.get('users/show.json', data={'screen_name': resp['screen_name']})
     user_info = user_info.data
     user["full_name"] = user_info['name']
-    user["oauth_token"] = resp['oauth_token']
-    user["oauth_secret"] = resp['oauth_token_secret']
     mongo.db.users.update({"user_id" : user["user_id"]}, user)
     session['user_id'] = user["user_id"]
     session.permanent = True
+
     return redirect(next_url)
 
 @app.route('/api/v1/identity/', methods = ['GET'])

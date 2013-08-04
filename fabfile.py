@@ -14,7 +14,7 @@ def deploy():
     rsync_project(
         remote_dir = "/home/bobuk/V/kittycheck", 
         local_dir = ".", 
-        exclude = ["v", "*.pyc", "*.pem", "*.xls"],
+        exclude = ["v", "*.pyc", "*.pem", "*.xls", ".v", ".git"],
         delete = True)
     fabtools.supervisor.restart_process('kittycheck')
 

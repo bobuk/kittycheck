@@ -10,6 +10,6 @@ workers = numCPUs() * 2 + 1
 pidfile = '/tmp/kittycheck.pid'
 proc_name = 'gunicorn/kittycheck'
 daemon = False
-debug = False
+debug = True
 logfile = "/tmp/kittycheck.log"
 loglevel = "info"
