@@ -1,20 +1,8 @@
-define([], function() {
+define(function() {
 
+    var monthNames = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Нов', 'Дек'];
     var month = function(n){
-        switch (n) {
-            case 1: return 'Янв';
-            case 2: return 'Фев';
-            case 3: return 'Мар';
-            case 4: return 'Апр';
-            case 5: return 'Май';
-            case 6: return 'Июн';
-            case 7: return 'Июл';
-            case 8: return 'Авг';
-            case 9: return 'Сен';
-            case 10: return 'Окт';
-            case 11: return 'Нов';
-            case 12: return 'Дек';
-        }
+        return monthNames[n - 1];
     };
 
 
@@ -36,8 +24,8 @@ define([], function() {
             return Math.floor(c / 3600) + 'ч';
         } else if (c >= 86400 || !eqDate) {
             var year = '';
-            if (new Date().getYear() != date.getYear()) {
-                year = ', ' + date.getYear();
+            if (new Date().getFullYear() != date.getFullYear()) {
+                year = ', ' + date.getFullYear();
             }
             return date.getDate() + ' ' + month(date.getMonth() + 1) + year;
         }
