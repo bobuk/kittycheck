@@ -106,7 +106,8 @@ def oauth_authorized(resp):
     user_info = twitter.get('users/show.json', data={'screen_name': resp['screen_name']})
     user_info = user_info.data
     user["full_name"] = user_info['name']
-    mongo.db.users.update({"user_id" : user["user_id"]}, user)
+    user["profile_image_url"] = user_info['profile_image_url']
+    mongo.db.users.update({"user_id": user["user_id"]}, user)
     session['user_id'] = user["user_id"]
     session.permanent = True
 
@@ -172,7 +173,11 @@ def api_comments(sitehash):
             mongo.db.kitty.insert(checkin)
         checkin['comments'].insert(0, {
             "text": text,
-            "author": {"login": g.user['name'], "name": g.user['full_name'] or g.user['name']},
+            "author": {
+                "login": g.user['name'],
+                "name": g.user.get('full_name') or g.user['name'],
+                "profile_image_url": g.user.get('profile_image_url')
+            },
             "datetime": str(time.mktime(datetime.now().timetuple()))
         })
         mongo.db.kitty.update({'sitehash': sitehash}, checkin)

@@ -38,7 +38,7 @@
     <div class="comment">
         <div class="header">
             <a href="https://twitter.com/<%= author.login %>" target="_blank" class="account">
-                <img src="https://api.twitter.com/1/users/profile_image?screen_name=<%= author.login %>&size=normal"
+                <img src="<%= author.profile_image_url || 'http://a0.twimg.com/sticky/default_profile_images/default_profile_1_normal.png' %>"
                      alt="<%= author.login %>" class="avatar" />
                 <strong class="fullname"><%= author.name %></strong>
                 <span class="username">
