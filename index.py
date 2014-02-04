@@ -140,7 +140,7 @@ def api_checkin(sitehash):
             mongo.db.kitty.insert(checkin)
         else:
             checkin['checkins'] = int(checkin['checkins']) + 1
-            mongo.db.kitty.update({'sitehash': sitehash}, checkin)
+            mongo.db.kitty.update({'sitehash': sitehash}, {"$inc": {"checkins": 1}})
     checkin['error'] = 0
     checkin["comments_url"] = '/api/v1/comments/' + sitehash
     if checkin.has_key("comments"):
