@@ -2,14 +2,6 @@
 
     var inject = function($){
 
-        var cats = {
-            'default': {
-                url: 'http://kittycheck.com/img/cat1.png',
-                width: 64,
-                height: 64
-            }
-        };
-
         var rumble = function(){
             if(typeof soundManager !== 'undefined')
             {
@@ -30,9 +22,9 @@
             soundManager.beginDelayedInit(); // ensure start-up in case document.readyState and/or DOMContentLoaded are unavailable
         };
 
-        var BASE_URL = '//127.0.0.1:5000';
+        var BASE_URL = '@@BASE_URL@@';
         var IFRAME_URL = BASE_URL+'/iframe';
-        var CSS_URL = BASE_URL+'/css/inject.css?4';
+        var CSS_URL = BASE_URL+'/css/inject.css?3';
         //var IFRAME_URL = 'index.html';
         //var CSS_URL = 'css/inject.css';
 
@@ -98,18 +90,11 @@
                     e.clientY = touches.clientY;
                 } catch (e) {}
                 $('body').append(
-                    $('<canvas>')
-                    .attr('id', 'kittychek-milk')
-                    .attr('width', '75')
-                    .attr('height', '75')
-                    .attr('value' , '0')
-                    .css({
-                        position: 'absolute',
-                        'z-index': 99999,
-                        left: e.clientX - 35,
-                        top: e.clientY - 35
-                    })
-                );
+                    "<canvas id='kittychek-milk' "+
+                    " width=75 height=75 " +
+                    "style='position: absolute; " +
+                    "left: " + (e.clientX-35) + "px; " +
+                    "top: "  + (e.clientY-35) +  "px;' value='0'/>");
                 timer();
             }
 
@@ -189,23 +174,6 @@
                 IFRAME_URL += '?site_uniq_id=' + encodeURIComponent($suid_meta.attr('content'));
             }
 
-            // example: <meta name="kittycheck_cat" content="default" />
-            var $catImg = $('meta[name="kittycheck_cat"]');
-            var imgId;
-            try {
-                imgId = $catImg.attr('content');
-                if (!cats[imgId].url) {
-                    throw '';
-                }
-            } catch (e) {
-                imgId = 'default';
-            }
-            var catImg = {
-                'background-image': "url('" + cats[imgId].url + "')",
-                width: cats[imgId].width,
-                height: cats[imgId].height
-            };
-
             // example: <meta name="kittycheck_position" content="top=10,left=10" />
             var $position = $('meta[name="kittycheck_position"]'),
                 catCss = $position.length && (function(){
@@ -261,7 +229,7 @@
             var $iframeFix = $('<div>')
                 .addClass('kittycheck-iframefix');
             var $cat = $('<div>')
-                .css($.extend({}, catCss, catImg))
+                .css(catCss)
                 .addClass('kittycheck-cat');
 
             $(parent).append($cat);
